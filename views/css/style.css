@@ -52,6 +52,7 @@ Last change:  4/september/18
 }
 
 
+
 /*===============
 ***General Styling 
 ===============*/
@@ -1991,6 +1992,18 @@ li.post-comment .comet-avatar {
 }
 
 #people-list figure {
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: middle;
+    width: 23%;
+    position: relative;
+}
+#people-list1 {
+    margin-top: 20px;
+    max-height: 450px;
+    position: relative
+}
+#people-list1 figure {
     display: inline-block;
     margin-bottom: 0;
     vertical-align: middle;
@@ -4662,6 +4675,7 @@ canvas {
 /*--- 100% radius images ---*/
 
 #people-list figure img,
+#people-list1 figure img,
 .new-postbox > figure img,
 .friend-info > figure img,
 .comet-avatar > img,

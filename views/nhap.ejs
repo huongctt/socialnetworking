@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/nhap.css">
+</head>
+<body>
+    <div>
+        <h3>Newsfeed</h3>
+    <ul>
+        <%for (var post of postArr) { %>
+        <li>Post : </li>
+        <li><a href="/users/<%=post.userid%>"><%= post.username%></a><</li>
+        <li>content: <%= post.content%></li>
+        <li>Like number : <%= post.likes.length%></li>
+        <li>Comment number : <%= post.comments.length%></li>
+        <li>......................</li>
+        
+
+        <% }%>
+    </ul>
+    </div>
+</body>
+</html>

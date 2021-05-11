@@ -9,6 +9,7 @@ jQuery(document).ready(function($) {
 	return false;
   });
 //------- remove class active on body
+
   $("body *").not('.top-area > .setting-area > li').on("click", function() {
 	$(".top-area > .setting-area > li > div").removeClass('active');		
  });
@@ -21,10 +22,10 @@ $('.user-img').on('click', function() {
 });	
 	
 //--- side message box	
-$('.friendz-list > li, .chat-users > li').on('click', function() {
-	$('.chat-box').addClass("show");
-	return false;
-});	
+// $('.friendz-list > li, .chat-users > li').on('click', function() {
+// 	$('.chat-box').addClass("show");
+// 	return false;
+// });	
 	$('.close-mesage').on('click', function() {
 		$('.chat-box').removeClass("show");
 		return false;
@@ -294,10 +295,12 @@ $(function() {
 
 	  
 // login & register form
+
 	$('button.signup').on("click", function(){
 		$('.login-reg-bg').addClass('show');
 		return false;
 	  });
+	  
 	  
 	  $('.already-have').on("click", function(){
 		$('.login-reg-bg').removeClass('show');
