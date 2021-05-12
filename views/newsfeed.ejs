@@ -560,38 +560,22 @@
 								<div class="central-meta">
 									<div class="new-postbox">
 										<figure>
-											<img src="images/resources/admin2.jpg" alt="">
+											<img src="/users/<%=user._id%>/avatar" alt="">
 										</figure>
 										<div class="newpst-input">
-											<form id= "post-form">
-												<textarea id="content" rows="2" placeholder="write something"></textarea>
+											<form id= "post-form" method="POST" action="posts/create" enctype="multipart/form-data">
+												<textarea id="content" name="content" rows="2" placeholder="write something"></textarea>
 												
 												<div class="attachments">
 													<ul>
-														<li>
-															<i class="fa fa-music"></i>
-															<label class="fileContainer">
-																<input type="file">
-															</label>
-														</li>
+														
 														<li>
 															<i class="fa fa-image"></i>
 															<label class="fileContainer">
-																<input type="file">
+																<input name="imagePost" type="file">
 															</label>
 														</li>
-														<li>
-															<i class="fa fa-video-camera"></i>
-															<label class="fileContainer">
-																<input type="file">
-															</label>
-														</li>
-														<li>
-															<i class="fa fa-camera"></i>
-															<label class="fileContainer">
-																<input type="file">
-															</label>
-														</li>
+														
 														<li>
 															<button type="submit">Post</button>
 														</li>
@@ -602,23 +586,32 @@
 									</div>
 								</div><!-- add post new box -->
 								<div class="loadMore">
-									
+								
+								<%if(postArr.length != 0)	{ %>
 								<%for (var post of postArr) { %>
 								<div class="central-meta item">
 									<div class="user-post">
 										<div class="friend-info">
+											<%if(!post.avatarStatus)	{ %>
 											<figure>
-												<img src="images/resources/friend-avatar10.jpg" alt="">
+												<img src="images/resources/friend-avatar10.jpg" >
 											</figure>
+											<%}else{ %>
+											<figure>
+												<img src="/users/<%=post.userid%>/avatar" >
+											</figure>	
+											<%} %>
 											<div class="friend-name">
 												<ins><a href="/users/<%=post.userid%>" title=""><%= post.username%></a></ins>
 												<!-- time
 													<span>published: june,2 2018 19:PM</span>
 												-->
 											</div>
+										
 											<div class="post-meta">
-												<!-- anh bai dang
-												<img src="images/resources/user-post.jpg" alt="">-->
+												<%if (post.imageStatus)	{ %>
+												<img src="http://localhost:3000/posts/image/<%=post.postid%>" />
+												<%}%>
 												<div class="we-video-info">
 													<ul>
 														
@@ -773,7 +766,8 @@
 									</div>
 								</div>
 								<% }%>
-								
+								<% }%>
+							
 								
 								
 								</div>
@@ -882,12 +876,16 @@
 											<%for (var friend of friendArr) { %>
 												<li>
 													<figure>
-														<img src="images/resources/friend-avatar.jpg" alt="">
-														<span class="status f-online"></span>
+														<%if(!friend.avatarStatus) { %>
+															<img src="images/resources/friend-avatar.jpg" alt="">
+														<%}else{%>
+															<img src="/users/<%=friend._id%>/avatar" alt="">
+														<%}%>
+														<!--<span class="status f-online"></span>-->
 													</figure>
 												
 													<div class="friendz-meta">
-														<a href="/users/<%=post.userid%>"><%= friend.username%></a>
+														<a href="/users/<%=friend._id%>"><%= friend.username%></a>
 													</div>
 												</li>
 												<%}%>
@@ -1127,7 +1125,7 @@
 	<script src="js/script.js"></script>
 	<script src="js/map-init.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8c55_YHLvDHGACkQscgbGLtLRdxBDCfI"></script>
-	<script src="ajax/postAjax.js"></script>
+	<!--<script src="ajax/postAjax.js"></script>-->
 
 </body>	
 

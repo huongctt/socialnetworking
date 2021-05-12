@@ -5,6 +5,13 @@ const Schema = new mongoose.Schema({
         type: String,
         required: true
     },
+    imagePost: {
+        type: Buffer
+    },
+    imageStatus:{
+        type: Boolean,
+        default: false
+    },
 
     user: {
         type: mongoose.Schema.Types.ObjectId,
