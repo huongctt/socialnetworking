@@ -101,7 +101,7 @@ router.get('/newsfeed',auth,  async (req, res) => {
                 var user = await User.findById(post[i][0].user)
                 
                 for (let j = 0; j < post[i].length; j++){
-                    commentpost = await Comment.find({post:post[i][j]._id})
+                    var commentpost = await Comment.find({post:post[i][j]._id})
                     // console.log(commentpost)
                     var apost = {
                         username: user.username,
@@ -122,6 +122,7 @@ router.get('/newsfeed',auth,  async (req, res) => {
         }
         var userPost = await Post.find({user: req.user._id})
         for(let i = 0; i < userPost.length; i++){
+            var commentpost = await Comment.find({post:userPost[i]._id})
             if (userPost[i].length != 0) {
                     var apost = {
                         username: req.user.username,
@@ -129,7 +130,7 @@ router.get('/newsfeed',auth,  async (req, res) => {
                         userid: req.user._id,
                         imageStatus: userPost[i].imageStatus,
                         postid:userPost[i]._id,
-                        comments: userPost[i].comments,
+                        comments: commentpost,
                         likes: userPost[i].likes,
                         content: userPost[i].content,
                         createdAt:userPost[i].createdAt

@@ -35,9 +35,9 @@ const userSchema = new mongoose.Schema({
         type: String,
  //       required: true,
     },
-    profilePicture: {
-        type: String
-    },
+    // profilePicture: {
+    //     type: String
+    // },
     avatar: {
         type: Buffer
     },
@@ -83,14 +83,15 @@ userSchema.methods.generateAuthToken = async function () {
 //     return userObject
 // }
 
-// userSchema.methods.toJSON = function() {
-//     const user = this
-//     const userObject = user.toObject()
+userSchema.methods.toJSON = function() {
+    const user = this
+    const userObject = user.toObject()
 
-//     delete userObject.password
-//     delete userObject.tokens
-//     return userObject
-// }
+    delete userObject.password
+    delete userObject.tokens
+    delete userObject.avatar
+    return userObject
+}
 
 userSchema.statics.findByCredentials = async (username, password) => {
     const user = await User.findOne( {username})

@@ -214,7 +214,7 @@
 	
 	<div class="topbar stick">
 		<div class="logo">
-			<a title="" href="/newsfeed"><img src="images/lumi.PNG" alt="" width=70%></a>
+			<a title="" href="/newsfeed"><img src="images/lumi.PNG" alt="" width=90%></a>
 		</div>
 		
 		<div class="top-area">
@@ -288,7 +288,8 @@
 				<li><a href="newsfeed.html" title="Home" data-ripple=""><i class="ti-home"></i></a></li>
 				<li>
 					<a href="#" title="Notification" data-ripple="">
-						<i class="ti-bell"></i><span>20</span>
+						<i class="ti-bell"></i>
+						<!-- <span>20</span> -->
 					</a>
 					<div class="dropdowns">
 						<span>4 New Notifications</span>
@@ -353,7 +354,8 @@
 					</div>
 				</li>
 				<li>
-					<a href="#" title="Messages" data-ripple=""><i class="ti-comment"></i><span>12</span></a>
+					<a href="#" title="Messages" data-ripple=""><i class="ti-comment"></i>
+						<!-- <span>12</span></a> -->
 					<div class="dropdowns">
 						<span>5 New Messages</span>
 						<ul class="drops-menu">
@@ -620,6 +622,62 @@
 												<%if (post.imageStatus)	{ %>
 												<img src="http://localhost:3000/posts/image/<%=post.postid%>" />
 												<%}%>
+												<!-- <div class="we-video-info">
+													<ul>
+														
+														<li>
+															<span class="comment" data-toggle="tooltip" title="Comments">
+																<i class="fa fa-comments-o"></i>
+																<ins><%= post.comments.length%></ins>
+															</span>
+														</li>
+														<li>
+															<span class="like" data-toggle="tooltip" title="like">
+																<i class="ti-heart"></i>
+																<ins><%= post.likes.length%></ins>
+															</span>
+														</li>
+														
+														<li class="social-media">
+															<div class="menu">
+															  <div class="rotater">
+																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-html5"></i></a></div>
+															  </div>
+															  <div class="rotater">
+																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-facebook"></i></a></div>
+															  </div>
+															  <div class="rotater">
+																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-google-plus"></i></a></div>
+															  </div>
+															  <div class="rotater">
+																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-twitter"></i></a></div>
+															  </div>
+															  <div class="rotater">
+																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-css3"></i></a></div>
+															  </div>
+															  <div class="rotater">
+																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-instagram"></i></a>
+																</div>
+															  </div>
+																<div class="rotater">
+																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-dribbble"></i></a>
+																</div>
+															  </div>
+															  <div class="rotater">
+																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-pinterest"></i></a>
+																</div>
+															  </div>
+
+															</div>
+														</li>
+													</ul>
+												</div> -->
+												<div class="description">
+													
+													<p style="color:black ;font-size:16px !important; ">
+														<%= post.content%>
+													</p>
+												</div>
 												<div class="we-video-info">
 													<ul>
 														
@@ -670,32 +728,32 @@
 														</li>
 													</ul>
 												</div>
-												<div class="description">
-													
-													<p style="color:black ;font-size:16px !important; ">
-														<%= post.content%>
-													</p>
-												</div>
 											</div>
 										</div>
 										 
 										<div class="coment-area">
 											<ul class="we-comet" id="comment<%=i%>">
-												
-												<li>
-													<div class="comet-avatar">
-														<img src="images/resources/comet-1.jpg" alt="">
-													</div>
-													<div class="we-comment">
-														<div class="coment-head">
-															<h5><a href="time-line.html" title="">Jason borne</a></h5>
-															<span>1 year ago</span>
-															<a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
-														</div>
-														<p>we are working for the dance and sing songs. this car is very awesome for the youngster. please vote this car and like our post</p>
-													</div>
-													
-												</li>
+												<%if (post.comments.length != 0 ){%>
+													<%for (var comment of post.comments) {%>
+														<li>
+															<div class="comet-avatar">
+																<%if (!comment.avatarStatus){%>
+																<img src="images/resources/comet-1.jpg" alt="">
+																<%}else{%>
+																	<img src="users/<%=comment.userid%>/avatar" alt="">
+																<%}%>
+															</div>
+															<div class="we-comment">
+																<div class="coment-head">
+																	<h5><a href="users/<%=comment.userid%>" title=""><%=comment.username%></a></h5>
+																	<!-- <span>1 year ago</span> -->
+																</div>
+																<p><%=comment.content%></p>
+															</div>
+															
+														</li>
+														<%}%>
+												<%}%>
 												
 												
 												<!-- <li class="post-comment">
