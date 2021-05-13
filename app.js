@@ -8,6 +8,7 @@ var $ = require('jquery');
 const userRouter = require('./routers/userRouter.js')
 const friendRouter = require('./routers/friendRouter.js')
 const postRouter = require('./routers/postRouter.js')
+const commentRouter = require('./routers/commentRouter.js')
 
 
 const app = express()
@@ -20,6 +21,7 @@ app.use(express.json())
 app.use(userRouter)
 app.use(friendRouter)
 app.use(postRouter)
+app.use(commentRouter)
 app.use(express.static(publicDirectoryPath))
 app.use(cookies());
 

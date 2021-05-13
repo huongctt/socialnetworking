@@ -457,7 +457,7 @@
 										<ul class="naves">
 											<li>
 												<i class="ti-clipboard"></i>
-												<a href="newsfeed.html" title="">News feed</a>
+												<a href="/newsfeed" title="">News feed</a>
 											</li>
 											<li>
 												<i class="ti-mouse-alt"></i>
@@ -481,10 +481,15 @@
 											</li>
 											<li>
 												<i class="ti-power-off"></i>
-												<a href="landing.html" title="">Logout</a>
+												<a href="/" title="" id="logout">Logout</a>
+											</li>
+											<li>
+												<input type="hidden"  id="thisuserid" value="<%=user._id%>"/>
+												<input type="hidden"  id="thisusername" value="<%=user.name%>"/>
 											</li>
 										</ul>
 									</div><!-- Shortcuts -->
+									<!--
 									<div class="widget">
 										<h4 class="widget-title">Recent Activity</h4>
 										<ul class="activitiez">
@@ -509,7 +514,9 @@
 												</div>
 											</li>
 										</ul>
-									</div><!-- recent activites -->
+									</div>
+									-->
+									<!-- recent activites -->
 									<!-- who's following 
 									<div class="widget stick-widget">
 										<h4 class="widget-title">Who's follownig</h4>
@@ -586,8 +593,9 @@
 									</div>
 								</div><!-- add post new box -->
 								<div class="loadMore">
-								
+								<!-- <div id="divon"> -->
 								<%if(postArr.length != 0)	{ %>
+								<%var i = 0 %>
 								<%for (var post of postArr) { %>
 								<div class="central-meta item">
 									<div class="user-post">
@@ -670,9 +678,10 @@
 												</div>
 											</div>
 										</div>
-										<!--comment 
+										 
 										<div class="coment-area">
-											<ul class="we-comet">
+											<ul class="we-comet" id="comment<%=i%>">
+												
 												<li>
 													<div class="comet-avatar">
 														<img src="images/resources/comet-1.jpg" alt="">
@@ -685,191 +694,51 @@
 														</div>
 														<p>we are working for the dance and sing songs. this car is very awesome for the youngster. please vote this car and like our post</p>
 													</div>
-													<ul>
-														<li>
-															<div class="comet-avatar">
-																<img src="images/resources/comet-2.jpg" alt="">
-															</div>
-															<div class="we-comment">
-																<div class="coment-head">
-																	<h5><a href="time-line.html" title="">alexendra dadrio</a></h5>
-																	<span>1 month ago</span>
-																	<a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
-																</div>
-																<p>yes, really very awesome car i see the features of this car in the official website of <a href="#" title="">#Mercedes-Benz</a> and really impressed :-)</p>
-															</div>
-														</li>
-														<li>
-															<div class="comet-avatar">
-																<img src="images/resources/comet-3.jpg" alt="">
-															</div>
-															<div class="we-comment">
-																<div class="coment-head">
-																	<h5><a href="time-line.html" title="">Olivia</a></h5>
-																	<span>16 days ago</span>
-																	<a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
-																</div>
-																<p>i like lexus cars, lexus cars are most beautiful with the awesome features, but this car is really outstanding than lexus</p>
-															</div>
-														</li>
-													</ul>
+													
 												</li>
-												<li>
-													<div class="comet-avatar">
-														<img src="images/resources/comet-1.jpg" alt="">
-													</div>
-													<div class="we-comment">
-														<div class="coment-head">
-															<h5><a href="time-line.html" title="">Donald Trump</a></h5>
-															<span>1 week ago</span>
-															<a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
-														</div>
-														<p>we are working for the dance and sing songs. this video is very awesome for the youngster. please vote this video and like our channel
-															<i class="em em-smiley"></i>
-														</p>
-													</div>
-												</li>
-												<li>
-													<a href="#" title="" class="showmore underline">more comments</a>
-												</li>
-												<li class="post-comment">
+												
+												
+												<!-- <li class="post-comment">
 													<div class="comet-avatar">
 														<img src="images/resources/comet-1.jpg" alt="">
 													</div>
 													<div class="post-comt-box">
-														<form method="post">
-															<textarea placeholder="Post your comment"></textarea>
-															<div class="add-smiles">
-																<span class="em em-expressionless" title="add icon"></span>
-															</div>
-															<div class="smiles-bunch">
-																<i class="em em---1"></i>
-																<i class="em em-smiley"></i>
-																<i class="em em-anguished"></i>
-																<i class="em em-laughing"></i>
-																<i class="em em-angry"></i>
-																<i class="em em-astonished"></i>
-																<i class="em em-blush"></i>
-																<i class="em em-disappointed"></i>
-																<i class="em em-worried"></i>
-																<i class="em em-kissing_heart"></i>
-																<i class="em em-rage"></i>
-																<i class="em em-stuck_out_tongue"></i>
-															</div>
-															<button type="submit"></button>
+														<form id="comment-form">
+															<textarea id="commentcontent" placeholder="Post your comment"></textarea>
+															<input type="hidden"  id="postid" value="<%=post.postid%>">
+													
+															<button type="submit" style="color:#007bff">Comment</button>
 														</form>	
 													</div>
-												</li>
+												</li> -->
+												
 											</ul>
+											<div class="comet-avatar">
+												<img src="images/resources/comet-1.jpg" alt="">
+											</div>
+											<div class="post-comt-box">
+												<form class="comment-form">
+													<textarea id="commentcontent<%=i%>" placeholder="Post your comment"></textarea>
+													<input type="hidden"  id="postid<%=i%>" value="<%=post.postid%>"/>
+											
+													<button type="submit" style="color:#007bff">Comment</button>
+												</form>	
+											</div>
 										</div>
-									-->
+									
 									</div>
 								</div>
+								<%i++%>
 								<% }%>
 								<% }%>
-							
+							<!-- </div> -->
 								
 								
 								</div>
 							</div><!-- centerl meta -->
 							<div class="col-lg-3">
 								<aside class="sidebar static">
-									<!--
-									<div class="widget">
-										<h4 class="widget-title">Your page</h4>	
-										<div class="your-page">
-											<figure>
-												<a href="#" title=""><img src="images/resources/friend-avatar9.jpg" alt=""></a>
-											</figure>
-											<div class="page-meta">
-												<a href="#" title="" class="underline">My page</a>
-												<span><i class="ti-comment"></i><a href="insight.html" title="">Messages <em>9</em></a></span>
-												<span><i class="ti-bell"></i><a href="insight.html" title="">Notifications <em>2</em></a></span>
-											</div>
-											<div class="page-likes">
-												<ul class="nav nav-tabs likes-btn">
-													<li class="nav-item"><a class="active" href="#link1" data-toggle="tab">likes</a></li>
-													 <li class="nav-item"><a class="" href="#link2" data-toggle="tab">views</a></li>
-												</ul>
-												
-												<div class="tab-content">
-												  <div class="tab-pane active fade show " id="link1" >
-													<span><i class="ti-heart"></i>884</span>
-													  <a href="#" title="weekly-likes">35 new likes this week</a>
-													  <div class="users-thumb-list">
-														<a href="#" title="Anderw" data-toggle="tooltip">
-															<img src="images/resources/userlist-1.jpg" alt="">  
-														</a>
-														<a href="#" title="frank" data-toggle="tooltip">
-															<img src="images/resources/userlist-2.jpg" alt="">  
-														</a>
-														<a href="#" title="Sara" data-toggle="tooltip">
-															<img src="images/resources/userlist-3.jpg" alt="">  
-														</a>
-														<a href="#" title="Amy" data-toggle="tooltip">
-															<img src="images/resources/userlist-4.jpg" alt="">  
-														</a>
-														<a href="#" title="Ema" data-toggle="tooltip">
-															<img src="images/resources/userlist-5.jpg" alt="">  
-														</a>
-														<a href="#" title="Sophie" data-toggle="tooltip">
-															<img src="images/resources/userlist-6.jpg" alt="">  
-														</a>
-														<a href="#" title="Maria" data-toggle="tooltip">
-															<img src="images/resources/userlist-7.jpg" alt="">  
-														</a>  
-													  </div>
-												  </div>
-												  <div class="tab-pane fade" id="link2" >
-													  <span><i class="ti-eye"></i>440</span>
-													  <a href="#" title="weekly-likes">440 new views this week</a>
-													  <div class="users-thumb-list">
-														<a href="#" title="Anderw" data-toggle="tooltip">
-															<img src="images/resources/userlist-1.jpg" alt="">  
-														</a>
-														<a href="#" title="frank" data-toggle="tooltip">
-															<img src="images/resources/userlist-2.jpg" alt="">  
-														</a>
-														<a href="#" title="Sara" data-toggle="tooltip">
-															<img src="images/resources/userlist-3.jpg" alt="">  
-														</a>
-														<a href="#" title="Amy" data-toggle="tooltip">
-															<img src="images/resources/userlist-4.jpg" alt="">  
-														</a>
-														<a href="#" title="Ema" data-toggle="tooltip">
-															<img src="images/resources/userlist-5.jpg" alt="">  
-														</a>
-														<a href="#" title="Sophie" data-toggle="tooltip">
-															<img src="images/resources/userlist-6.jpg" alt="">  
-														</a>
-														<a href="#" title="Maria" data-toggle="tooltip">
-															<img src="images/resources/userlist-7.jpg" alt="">  
-														</a>  
-													  </div>
-												  </div>
-												</div>
-											</div>
-										</div>
-									</div>
 									
-									
-									<div class="widget">
-										<div class="banner medium-opacity bluesh">
-											<div class="bg-image" style="background-image: url(images/resources/baner-widgetbg.jpg)"></div>
-											<div class="baner-top">
-												<span><img alt="" src="images/book-icon.png"></span>
-												<i class="fa fa-ellipsis-h"></i>
-											</div>
-											<div class="banermeta">
-												<p>
-													create your own favourit page.
-												</p>
-												<span>like them all</span>
-												<a data-ripple="" title="" href="#">start now!</a>
-											</div>
-										</div>											
-									</div>
-								-->
 									<div id= "people-list1" class="widget friend-list stick-widget">
 										<h4 class="widget-title">Friends</h4>
 										<ul class="friendz-list">
@@ -1126,6 +995,7 @@
 	<script src="js/map-init.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8c55_YHLvDHGACkQscgbGLtLRdxBDCfI"></script>
 	<!--<script src="ajax/postAjax.js"></script>-->
+	<script src="ajax/newsfeed.js"></script>
 
 </body>	
 

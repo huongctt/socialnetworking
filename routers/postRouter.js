@@ -5,6 +5,7 @@ const auth = require('../middleware/auth.js')
 const User = require('../models/user.js')
 const Friend = require('../models/friend.js')
 const Post = require('../models/post.js')
+const Comment = require('../models/comment.js')
 
 const upload = multer({
     limits:{
@@ -80,6 +81,7 @@ router.get('/posts', auth,  async (req, res) => {
 })
 
 
+
 router.get('/newsfeed',auth,  async (req, res) => {
     // console.log('Cookies: ', req.cookies.authToken)
     const match = {friends : true }
@@ -99,13 +101,16 @@ router.get('/newsfeed',auth,  async (req, res) => {
                 var user = await User.findById(post[i][0].user)
                 
                 for (let j = 0; j < post[i].length; j++){
+                    commentpost = await Comment.find({post:post[i][j]._id})
+                    // console.log(commentpost)
                     var apost = {
                         username: user.username,
                         avatarStatus: user.avatarStatus,
                         userid: user._id,
                         imageStatus: post[i][j].imageStatus,
                         postid:post[i][j]._id,
-                        comments: post[i][j].comments,
+                        // comments: post[i][j].comments,
+                        comments: commentpost,
                         likes: post[i][j].likes,
                         content: post[i][j].content,
                         createdAt:post[i][j].createdAt
@@ -143,45 +148,6 @@ router.get('/newsfeed',auth,  async (req, res) => {
         console.log(e)
     }
 })
-
-
-// router.get('/newsfeed', auth,  async (req, res) => {
-//     const match = {friends : true }
-//     try {
-//         await req.user.populate({
-//             path: 'friends',
-//             match: match
-            
-//         }).execPopulate();
-//         // res.send(req.user.friends)
-
-//         var postArr = await Promise.all(req.user.friends.map(async (friend) => {
-
-//             var post = await Post.find({user: friend.receiver})
-//             if (post.length!=0){
-//                 var user = await User.findById(post[0].user)
-//                 post.map((apost) => {
-//                     apost.usernameee = user.username
-                    
-//                     console.log(apost)
-//                     return apost
-//                 });
-//                 console.log("1")
-//             }
-//             return post
-//         }
-//         ))
-        
-//         res.send(postArr)
-//         console.log("2")
-//         //console.log(post2)
-         
-        
-//     } catch (e) {
-//         console.log(e)
-//         res.status(500).send(e)
-//     }
-// })
 
 
 module.exports = router

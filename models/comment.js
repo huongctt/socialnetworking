@@ -6,10 +6,17 @@ const Schema = new mongoose.Schema({
         required: true
     },
 
-    user: {
+    userid: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
+    avatarStatus:{
+        type: Boolean,
+        default: false
+    },
+    username:{
+        type: String
+    },   
 
     post: {
         type: mongoose.Schema.Types.ObjectId,

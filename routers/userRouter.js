@@ -131,8 +131,8 @@ router.post('/users/logout', auth, async(req, res) => {
         })
         await req.user.save()
 
-        res.send()
-
+        res.status(200).send()
+        // res.redirect('')
     } catch (e) {
         res.status(500).send()
     }

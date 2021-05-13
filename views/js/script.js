@@ -10,9 +10,9 @@ jQuery(document).ready(function($) {
   });
 //------- remove class active on body
 
-  $("body *").not('.top-area > .setting-area > li').on("click", function() {
-	$(".top-area > .setting-area > li > div").removeClass('active');		
- });
+//   $("body *").not('.top-area > .setting-area > li').on("click", function() {
+// 	$(".top-area > .setting-area > li > div").removeClass('active');		
+//  });
 	
 
 //--- user setting dropdown on topbar	
@@ -316,16 +316,17 @@ $(function() {
 	}
 	
 /** Post a Comment **/
-jQuery(".post-comt-box textarea").on("keydown", function(event) {
 
-	if (event.keyCode == 13) {
-		var comment = jQuery(this).val();
-		var parent = jQuery(".showmore").parent("li");
-		var comment_HTML = '	<li><div class="comet-avatar"><img src="images/resources/comet-1.jpg" alt=""></div><div class="we-comment"><div class="coment-head"><h5><a href="time-line.html" title="">Jason borne</a></h5><span>1 year ago</span><a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a></div><p>'+comment+'</p></div></li>';
-		$(comment_HTML).insertBefore(parent);
-		jQuery(this).val('');
-	}
-}); 
+// jQuery(".post-comt-box textarea").on("keydown", function(event) {
+
+// 	if (event.keyCode == 13) {
+// 		var comment = jQuery(this).val();
+// 		var parent = jQuery(".showmore").parent("li");
+// 		var comment_HTML = '	<li><div class="comet-avatar"><img src="images/resources/comet-1.jpg" alt=""></div><div class="we-comment"><div class="coment-head"><h5><a href="time-line.html" title="">Jason borne</a></h5><span>1 year ago</span><a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a></div><p>'+comment+'</p></div></li>';
+// 		$(comment_HTML).insertBefore(parent);
+// 		jQuery(this).val('');
+// 	}
+// }); 
 	
 //inbox page 	
 //***** Message Star *****//  
