@@ -150,7 +150,7 @@ if ($.isFunction($.fn.userincr)) {
 	
 if ($.isFunction($.fn.loadMoreResults)) {	
 	$('.loadMore').loadMoreResults({
-		displayedItems: 3,
+		displayedItems: 9,
 		showItems: 1,
 		button: {
 		  'class': 'btn-load-more',

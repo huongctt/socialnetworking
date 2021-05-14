@@ -50,11 +50,12 @@ router.post('/posts/create', auth,upload.single('imagePost'), async (req, res) =
     try {
         await post.save()
         // res.status(201).send(post)
-        res.redirect('/newsfeed')
+        res.redirect('back')
     } catch (e) {
         res.status(400).send(e)
     }
 })
+
 router.get('/posts/image/:id', async (req, res) => {
     try {
         const post = await Post.findById(req.params.id)
@@ -139,7 +140,7 @@ router.get('/newsfeed',auth,  async (req, res) => {
             }
            
         }
-
+        
         var friendArr = await Promise.all(req.user.friends.map(friend => User.findById(friend.receiver)))
         // console.log(friendArr)
         const post3 = postArr.sort((a,b) => b.createdAt - a.createdAt)

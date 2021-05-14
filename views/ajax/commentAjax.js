@@ -1,18 +1,8 @@
-var logout = document.querySelector("#logout")
 var commentForm = document.querySelectorAll(".comment-form")
-
-logout.addEventListener("click", (e) => {
-    var xhr = new XMLHttpRequest()
-    xhr.open("POST", "/users/logout", true) 
-    
-    xhr.send()
-})
-
-
 commentForm.forEach(form => form.addEventListener('submit', (e) =>{
     e.preventDefault()
     var index = Array.from(commentForm).indexOf(e.target)
-    console.log(index)
+    // console.log(index)
     var contentinput= 'commentcontent' +index
     var postinput = 'postid' +index
     var data = {

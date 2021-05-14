@@ -262,18 +262,7 @@
 						<li><a href="notifications.html" title="">notifications page</a></li>
 					</ul>
 				</li>
-				<li>
-					<a href="#" title="">more pages</a>
-					<ul>
-						<li><a href="404.html" title="">404 error page</a></li>
-						<li><a href="about.html" title="">about</a></li>
-						<li><a href="contact.html" title="">contact</a></li>
-						<li><a href="faq.html" title="">faq's page</a></li>
-						<li><a href="insights.html" title="">insights</a></li>
-						<li><a href="knowledge-base.html" title="">knowledge base</a></li>
-						<li><a href="widgets.html" title="">Widgts</a></li>
-					</ul>
-				</li>
+				
 			</ul>
 		-->
 		<ul class="main-menu">
@@ -578,232 +567,47 @@
 							</div><!-- sidebar -->
 							<div class="col-lg-6">
 								
-								<div class="central-meta">
-									<div class="new-postbox">
-										<%if(!user.avatarStatus)	{ %>
-											<figure>
-												<!-- <img src="images/default-avatar.png" > -->
-												<img src="<%=user.profilePicture%>" >
-											</figure>
-											<%}else{ %>
-											<figure>
-												<img src="/users/<%=user._id%>/avatar" >
-											</figure>	
-											<%} %>
-										<div class="newpst-input">
-											
-											<form id= "post-form" method="POST" action="posts/create" enctype="multipart/form-data">
-												<textarea id="content" name="content" rows="2" placeholder="write something"></textarea>
-												
-												<div class="attachments">
-													<ul>
-														
-														<li>
-															<i class="fa fa-image"></i>
-															<label class="fileContainer">
-																<input name="imagePost" type="file">
-															</label>
-														</li>
-														
-														<li>
-															<button type="submit">Post</button>
-														</li>
-													</ul>
-												</div>
-											</form>
-										</div>
-									</div>
-								</div><!-- add post new box -->
+								<!-- add post new box -->
 								<div class="loadMore">
 								<!-- <div id="divon"> -->
-								<%if(postArr.length != 0)	{ %>
+								<%if(userArr.length != 0)	{ %>
 								<%var i = 0 %>
-								<%for (var post of postArr) { %>
+								<%for (var auser of userArr) { %>
 								<div class="central-meta item">
 									<div class="user-post">
 										<div class="friend-info">
-											<%if(!post.avatarStatus)	{ %>
+											<%if(!auser.avatarStatus)	{ %>
 											<figure>
 												<img src="images/resources/friend-avatar10.jpg" >
 											</figure>
 											<%}else{ %>
 											<figure>
-												<img src="/users/<%=post.userid%>/avatar" >
+												<img src="/users/<%=auser._id%>/avatar" >
 											</figure>	
 											<%} %>
 											<div class="friend-name">
-												<ins><a href="/users/<%=post.userid%>" title=""><%= post.username%></a></ins>
-												<!-- time
-													<span>published: june,2 2018 19:PM</span>
-												-->
+												<ins><a href="/users/<%=auser.id%>" title=""><%= auser.username%></a></ins>
+												<!-- <form method="GET" action="/send-request"> -->
+												<form class="addfriend">
+													<input type="hidden"  name="id" id="id<%=i%>"value="<%=auser._id%>"/>
+													<button>Add Friend</button>
+												</form>
 											</div>
 										
-											<div class="post-meta">
-												<%if (post.imageStatus)	{ %>
-												<img src="http://localhost:3000/posts/image/<%=post.postid%>" />
-												<%}%>
-												<!-- <img src="url" /> -->
-												<!-- <div class="we-video-info">
-													<ul>
-														
-														<li>
-															<span class="comment" data-toggle="tooltip" title="Comments">
-																<i class="fa fa-comments-o"></i>
-																<ins><%= post.comments.length%></ins>
-															</span>
-														</li>
-														<li>
-															<span class="like" data-toggle="tooltip" title="like">
-																<i class="ti-heart"></i>
-																<ins><%= post.likes.length%></ins>
-															</span>
-														</li>
-														
-														<li class="social-media">
-															<div class="menu">
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-html5"></i></a></div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-facebook"></i></a></div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-google-plus"></i></a></div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-twitter"></i></a></div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-css3"></i></a></div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-instagram"></i></a>
-																</div>
-															  </div>
-																<div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-dribbble"></i></a>
-																</div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-pinterest"></i></a>
-																</div>
-															  </div>
-
-															</div>
-														</li>
-													</ul>
-												</div> -->
+											<!-- <div class="post-meta">
+												
+												
 												<div class="description">
 													
 													<p style="color:black ;font-size:16px !important; ">
-														<%= post.content%>
+														<%= auser.email%>
 													</p>
-												</div>
-												<div class="we-video-info">
-													<ul>
-														
-														<li>
-															<span class="comment" data-toggle="tooltip" title="Comments">
-																<i class="fa fa-comments-o"></i>
-																<ins><%= post.comments.length%></ins>
-															</span>
-														</li>
-														<li>
-															<span class="like" data-toggle="tooltip" title="like">
-																<i class="ti-heart"></i>
-																<ins><%= post.likes.length%></ins>
-															</span>
-														</li>
-														
-														<li class="social-media">
-															<div class="menu">
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-html5"></i></a></div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-facebook"></i></a></div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-google-plus"></i></a></div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-twitter"></i></a></div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-css3"></i></a></div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-instagram"></i></a>
-																</div>
-															  </div>
-																<div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-dribbble"></i></a>
-																</div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-pinterest"></i></a>
-																</div>
-															  </div>
-
-															</div>
-														</li>
-													</ul>
-												</div>
-											</div>
+												</div> 
+												
+											</div> -->
 										</div>
 										 
-										<div class="coment-area">
-											<ul class="we-comet" id="comment<%=i%>">
-												<%if (post.comments.length != 0 ){%>
-													<%for (var comment of post.comments) {%>
-														<li>
-															<div class="comet-avatar">
-																<%if (!comment.avatarStatus){%>
-																<img src="images/resources/comet-1.jpg" alt="">
-																<%}else{%>
-																	<img src="users/<%=comment.userid%>/avatar" alt="">
-																<%}%>
-															</div>
-															<div class="we-comment">
-																<div class="coment-head">
-																	<h5><a href="users/<%=comment.userid%>" title=""><%=comment.username%></a></h5>
-																	<!-- <span>1 year ago</span> -->
-																</div>
-																<p><%=comment.content%></p>
-															</div>
-															
-														</li>
-														<%}%>
-												<%}%>
-												
-												
-												<!-- <li class="post-comment">
-													<div class="comet-avatar">
-														<img src="images/resources/comet-1.jpg" alt="">
-													</div>
-													<div class="post-comt-box">
-														<form id="comment-form">
-															<textarea id="commentcontent" placeholder="Post your comment"></textarea>
-															<input type="hidden"  id="postid" value="<%=post.postid%>">
-													
-															<button type="submit" style="color:#007bff">Comment</button>
-														</form>	
-													</div>
-												</li> -->
-												
-											</ul>
-											<div class="comet-avatar">
-												<img src="images/resources/comet-1.jpg" alt="">
-											</div>
-											<div class="post-comt-box">
-												<form class="comment-form">
-													<textarea id="commentcontent<%=i%>" placeholder="Post your comment"></textarea>
-													<input type="hidden"  id="postid<%=i%>" value="<%=post.postid%>"/>
-											
-													<button type="submit" style="color:#007bff">Comment</button>
-												</form>	
-											</div>
-										</div>
+										
 									
 									</div>
 								</div>
@@ -818,93 +622,7 @@
 							<div class="col-lg-3">
 								<aside class="sidebar static">
 									
-									<div id= "people-list1" class="widget friend-list stick-widget">
-										<h4 class="widget-title">Friends</h4>
-										<ul class="friendz-list">
-											<%if (friendArr.length !=0){%>
-											<%for (var friend of friendArr) { %>
-												<li>
-													<figure>
-														<%if(!friend.avatarStatus) { %>
-															<img src="images/resources/friend-avatar.jpg" alt="">
-														<%}else{%>
-															<img src="/users/<%=friend._id%>/avatar" alt="">
-														<%}%>
-														<!--<span class="status f-online"></span>-->
-													</figure>
-												
-													<div class="friendz-meta">
-														<a href="/users/<%=friend._id%>"><%= friend.username%></a>
-													</div>
-												</li>
-												<%}%>
-												<%}%>
-										</ul>
-										
-										<div class="chat-box">
-											<div class="chat-head">
-												<span class="status f-online"></span>
-												<h6>Bucky Barnes</h6>
-												<div class="more">
-													<span><i class="ti-more-alt"></i></span>
-													<span class="close-mesage"><i class="ti-close"></i></span>
-												</div>
-											</div>
-											<div class="chat-list">
-												<ul>
-													<li class="me">
-														<div class="chat-thumb"><img src="images/resources/chatlist1.jpg" alt=""></div>
-														<div class="notification-event">
-															<span class="chat-message-item">
-																Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling the gifts and Jake’s gonna get the drinks
-															</span>
-															<span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Yesterday at 8:10pm</time></span>
-														</div>
-													</li>
-													<li class="you">
-														<div class="chat-thumb"><img src="images/resources/chatlist2.jpg" alt=""></div>
-														<div class="notification-event">
-															<span class="chat-message-item">
-																Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling the gifts and Jake’s gonna get the drinks
-															</span>
-															<span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Yesterday at 8:10pm</time></span>
-														</div>
-													</li>
-													<li class="me">
-														<div class="chat-thumb"><img src="images/resources/chatlist1.jpg" alt=""></div>
-														<div class="notification-event">
-															<span class="chat-message-item">
-																Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling the gifts and Jake’s gonna get the drinks
-															</span>
-															<span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Yesterday at 8:10pm</time></span>
-														</div>
-													</li>
-												</ul>
-												<form class="text-box">
-													<textarea placeholder="Post enter to post..."></textarea>
-													<div class="add-smiles">
-														<span title="add icon" class="em em-expressionless"></span>
-													</div>
-													<div class="smiles-bunch">
-														<i class="em em---1"></i>
-														<i class="em em-smiley"></i>
-														<i class="em em-anguished"></i>
-														<i class="em em-laughing"></i>
-														<i class="em em-angry"></i>
-														<i class="em em-astonished"></i>
-														<i class="em em-blush"></i>
-														<i class="em em-disappointed"></i>
-														<i class="em em-worried"></i>
-														<i class="em em-kissing_heart"></i>
-														<i class="em em-rage"></i>
-														<i class="em em-stuck_out_tongue"></i>
-													</div>
-													<button type="submit"></button>
-												</form>
-											</div>
-										</div>
-									
-									</div><!-- friends list sidebar -->
+									<!-- friends list sidebar -->
 								</aside>
 							</div><!-- sidebar -->
 						</div>	
@@ -1075,7 +793,31 @@
 	<script src="js/map-init.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8c55_YHLvDHGACkQscgbGLtLRdxBDCfI"></script>
 	<!--<script src="ajax/postAjax.js"></script>-->
-	<script src="ajax/commentAjax.js"></script>
+	<!-- <script src="ajax/friend.js"></script> -->
+	<script>
+		var addFriendForm = document.querySelectorAll(".addfriend")
+		addFriendForm.forEach(form => form.addEventListener('submit', (e) =>{
+			e.preventDefault()
+			var index = Array.from(addFriendForm).indexOf(e.target)
+			var idindex= 'id' + index
+			var id = document.getElementById(idindex).value
+			console.log(id)
+
+			// alert("click")
+			var xhr = new XMLHttpRequest()
+			xhr.open("GET", "/send-request?id=" + id, true) 
+			xhr.setRequestHeader('Content-Type', 'application/json')
+			
+			xhr.onload = function() {
+				if(this.status == 200){
+				var message = JSON.parse(xhr.response)
+				alert(message.message)
+				}
+			}
+			
+			xhr.send()
+		}))
+	</script>
 
 </body>	
 
