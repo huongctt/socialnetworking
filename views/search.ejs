@@ -576,15 +576,11 @@
 								<div class="central-meta item">
 									<div class="user-post">
 										<div class="friend-info">
-											<%if(!auser.avatarStatus)	{ %>
+											
 											<figure>
-												<img src="images/resources/friend-avatar10.jpg" >
-											</figure>
-											<%}else{ %>
-											<figure>
-												<img src="/users/<%=auser._id%>/avatar" >
+												<img src="<%=auser.avatarurl%>" >
 											</figure>	
-											<%} %>
+											
 											<div class="friend-name">
 												<ins><a href="/users/<%=auser.id%>" title=""><%= auser.username%></a></ins>
 												<!-- <form method="GET" action="/send-request"> -->

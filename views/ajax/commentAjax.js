@@ -21,13 +21,10 @@ commentForm.forEach(form => form.addEventListener('submit', (e) =>{
     
     xhr.onload = function() {
         if(this.status == 201){
-        var comment = JSON.parse(xhr.response)
+        var res = JSON.parse(xhr.response)
         var output = ''
-        if(comment.avatarStatus){
-            output += '<li><div class="comet-avatar"><img src="/users/'+comment.userid+'/avatar" alt=""></div><div class="we-comment"><div class="coment-head"><h5><a href="time-line.html" title="">'+comment.username+'</a></h5></div><p>'+comment.content+'</p></div></li>'
-        }else {
-            output += '<li><div class="comet-avatar"><img src="images/default-avatar.png" alt=""></div><div class="we-comment"><div class="coment-head"><h5><a href="time-line.html" title="">'+comment.username+'</a></h5></div><p>'+comment.content+'</p></div></li>'
-        }
+        output += '<li><div class="comet-avatar"><img src="'+res.avatarurl+'" alt=""></div><div class="we-comment"><div class="coment-head"><h5><a href="time-line.html" title="">'+res.username+'</a></h5></div><p>'+res.comment.content+'</p></div></li>'
+        
         commentContainer.insertAdjacentHTML('beforeEnd',output)
         }
     }

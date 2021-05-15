@@ -35,15 +35,11 @@ const userSchema = new mongoose.Schema({
         type: String,
  //       required: true,
     },
-    profilePicture: {
+    avatarurl: {
         type: String
     },
     avatar: {
         type: Buffer
-    },
-    avatarStatus:{
-        type: Boolean,
-        default: false
     },
     friends : [{
         type: mongoose.Schema.Types.ObjectId,

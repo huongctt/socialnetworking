@@ -580,16 +580,12 @@
 								
 								<div class="central-meta">
 									<div class="new-postbox">
-										<%if(!user.avatarStatus)	{ %>
 											<figure>
 												<!-- <img src="images/default-avatar.png" > -->
-												<img src="<%=user.profilePicture%>" >
+												<img src="<%=user.avatarurl%>" >
+												<!-- <img src="/images/default-avatar.png" > -->
 											</figure>
-											<%}else{ %>
-											<figure>
-												<img src="/users/<%=user._id%>/avatar" >
-											</figure>	
-											<%} %>
+											
 										<div class="newpst-input">
 											
 											<form id= "post-form" method="POST" action="posts/create" enctype="multipart/form-data">
@@ -622,17 +618,13 @@
 								<div class="central-meta item">
 									<div class="user-post">
 										<div class="friend-info">
-											<%if(!post.avatarStatus)	{ %>
+											
 											<figure>
-												<img src="images/resources/friend-avatar10.jpg" >
+												<img src="<%=post.user.avatarurl%>" >
 											</figure>
-											<%}else{ %>
-											<figure>
-												<img src="/users/<%=post.userid%>/avatar" >
-											</figure>	
-											<%} %>
+											
 											<div class="friend-name">
-												<ins><a href="/users/<%=post.userid%>" title=""><%= post.username%></a></ins>
+												<ins><a href="/users/<%=post.user._id%>" title=""><%= post.user.username%></a></ins>
 												<!-- time
 													<span>published: june,2 2018 19:PM</span>
 												-->
@@ -640,7 +632,7 @@
 										
 											<div class="post-meta">
 												<%if (post.imageStatus)	{ %>
-												<img src="http://localhost:3000/posts/image/<%=post.postid%>" />
+												<img src="http://localhost:3000/posts/image/<%=post._id%>" />
 												<%}%>
 												<!-- <img src="url" /> -->
 												<!-- <div class="we-video-info">
@@ -758,15 +750,13 @@
 													<%for (var comment of post.comments) {%>
 														<li>
 															<div class="comet-avatar">
-																<%if (!comment.avatarStatus){%>
-																<img src="images/resources/comet-1.jpg" alt="">
-																<%}else{%>
-																	<img src="users/<%=comment.userid%>/avatar" alt="">
-																<%}%>
+																
+																<img src="<%=comment.userid.avatarurl%>" alt="">
+																
 															</div>
 															<div class="we-comment">
 																<div class="coment-head">
-																	<h5><a href="users/<%=comment.userid%>" title=""><%=comment.username%></a></h5>
+																	<h5><a href="users/<%=comment.userid._id%>" title=""><%=comment.userid.username%></a></h5>
 																	<!-- <span>1 year ago</span> -->
 																</div>
 																<p><%=comment.content%></p>
@@ -798,7 +788,7 @@
 											<div class="post-comt-box">
 												<form class="comment-form">
 													<textarea id="commentcontent<%=i%>" placeholder="Post your comment"></textarea>
-													<input type="hidden"  id="postid<%=i%>" value="<%=post.postid%>"/>
+													<input type="hidden"  id="postid<%=i%>" value="<%=post._id%>"/>
 											
 													<button type="submit" style="color:#007bff">Comment</button>
 												</form>	
@@ -825,16 +815,14 @@
 											<%for (var friend of friendArr) { %>
 												<li>
 													<figure>
-														<%if(!friend.avatarStatus) { %>
-															<img src="images/resources/friend-avatar.jpg" alt="">
-														<%}else{%>
-															<img src="/users/<%=friend._id%>/avatar" alt="">
-														<%}%>
+														
+															<img src="<%=friend.avatarurl%>" alt="">
+														
 														<!--<span class="status f-online"></span>-->
 													</figure>
 												
 													<div class="friendz-meta">
-														<a href="/users/<%=friend._id%>"><%= friend.username%></a>
+														<a href="users/<%=friend._id%>"><%= friend.username%></a>
 													</div>
 												</li>
 												<%}%>

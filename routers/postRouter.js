@@ -83,6 +83,75 @@ router.get('/posts', auth,  async (req, res) => {
 
 
 
+// router.get('/newsfeed',auth,  async (req, res) => {
+//     // console.log('Cookies: ', req.cookies.authToken)
+//     const match = {friends : true }
+//     try {
+//         await req.user.populate({
+//             path: 'friends',
+//             match: match
+            
+//         }).execPopulate();
+//         // res.send(req.user.friends)
+
+//         var post = await Promise.all(req.user.friends.map(friend => Post.find({user: friend.receiver})))
+//         var postArr = [];
+//         //console.log(post.length)
+//         for(let i = 0; i < post.length; i++){
+//             if (post[i].length != 0) {
+//                 var user = await User.findById(post[i][0].user)
+                
+//                 for (let j = 0; j < post[i].length; j++){
+//                     var commentpost = await Comment.find({post:post[i][j]._id})
+//                     // console.log(commentpost)
+//                     var apost = {
+//                         username: user.username,
+//                         avatarurl: user.avatarurl,
+//                         userid: user._id,
+//                         imageStatus: post[i][j].imageStatus,
+//                         postid:post[i][j]._id,
+//                         // comments: post[i][j].comments,
+//                         comments: commentpost,
+//                         likes: post[i][j].likes,
+//                         content: post[i][j].content,
+//                         createdAt:post[i][j].createdAt
+//                     }
+//                     postArr.push(apost)
+//                 }
+//             }
+           
+//         }
+//         var userPost = await Post.find({user: req.user._id})
+//         for(let i = 0; i < userPost.length; i++){
+//             var commentpost = await Comment.find({post:userPost[i]._id})
+//             if (userPost[i].length != 0) {
+//                     var apost = {
+//                         username: req.user.username,
+//                         avatarurl: req.user.avatarurl,
+//                         userid: req.user._id,
+//                         imageStatus: userPost[i].imageStatus,
+//                         postid:userPost[i]._id,
+//                         comments: commentpost,
+//                         likes: userPost[i].likes,
+//                         content: userPost[i].content,
+//                         createdAt:userPost[i].createdAt
+//                     }
+//                     postArr.push(apost)
+//             }
+           
+//         }
+        
+//         var friendArr = await Promise.all(req.user.friends.map(friend => User.findById(friend.receiver)))
+//         // console.log(friendArr)
+//         const post3 = postArr.sort((a,b) => b.createdAt - a.createdAt)
+//         res.render('newsfeed', {postArr, friendArr, user: req.user})
+//     } catch(e) {
+//         res.status(500).send()
+//         console.log(e)
+//     }
+// })
+
+
 router.get('/newsfeed',auth,  async (req, res) => {
     // console.log('Cookies: ', req.cookies.authToken)
     const match = {friends : true }
@@ -97,59 +166,70 @@ router.get('/newsfeed',auth,  async (req, res) => {
         var post = await Promise.all(req.user.friends.map(friend => Post.find({user: friend.receiver})))
         var postArr = [];
         //console.log(post.length)
+
         for(let i = 0; i < post.length; i++){
-            if (post[i].length != 0) {
-                var user = await User.findById(post[i][0].user)
-                
-                for (let j = 0; j < post[i].length; j++){
-                    var commentpost = await Comment.find({post:post[i][j]._id})
-                    // console.log(commentpost)
-                    var apost = {
-                        username: user.username,
-                        avatarStatus: user.avatarStatus,
-                        userid: user._id,
-                        imageStatus: post[i][j].imageStatus,
-                        postid:post[i][j]._id,
-                        // comments: post[i][j].comments,
-                        comments: commentpost,
-                        likes: post[i][j].likes,
-                        content: post[i][j].content,
-                        createdAt:post[i][j].createdAt
+                if (post[i].length != 0) {
+                    for (let j = 0; j < post[i].length; j++){
+                        await post[i][j].populate({
+                            path: 'user'
+                            
+                        }).execPopulate();
+                        await post[i][j].populate({
+                            path: 'comments'
+                            
+                        }).execPopulate();
+                        if(post[i][j].comments.length!=0){
+                            
+                            for(var k = 0; k < post[i][j].comments.length; k++){
+                                await post[i][j].comments[k].populate({
+                                    path:'userid'
+                                }).execPopulate()
+                            }   
+                        }
+                        postArr.push(post[i][j])
                     }
-                    postArr.push(apost)
                 }
-            }
-           
+               
+            
         }
+
+        
+           
+        
         var userPost = await Post.find({user: req.user._id})
-        for(let i = 0; i < userPost.length; i++){
-            var commentpost = await Comment.find({post:userPost[i]._id})
-            if (userPost[i].length != 0) {
-                    var apost = {
-                        username: req.user.username,
-                        avatarStatus: req.user.avatarStatus,
-                        userid: req.user._id,
-                        imageStatus: userPost[i].imageStatus,
-                        postid:userPost[i]._id,
-                        comments: commentpost,
-                        likes: userPost[i].likes,
-                        content: userPost[i].content,
-                        createdAt:userPost[i].createdAt
-                    }
-                    postArr.push(apost)
-            }
+        if(userPost.length!=0) {
+            for(let i = 0; i < userPost.length; i++){
+                await userPost[i].populate({
+                    path:'comments'
+                }).execPopulate()
+                await userPost[i].populate({
+                    path: 'user'
+                    
+                }).execPopulate();
+                
+                for(var j = 0; j < userPost[i].comments.length; j++){
+                    await userPost[i].comments[j].populate({
+                        path:'userid'
+                    }).execPopulate()
+                        // console.log("ok")
+                }
+                
            
+                postArr.push(userPost[i])
+               
+            }
         }
+        
         
         var friendArr = await Promise.all(req.user.friends.map(friend => User.findById(friend.receiver)))
         // console.log(friendArr)
         const post3 = postArr.sort((a,b) => b.createdAt - a.createdAt)
         res.render('newsfeed', {postArr, friendArr, user: req.user})
+        
     } catch(e) {
         res.status(500).send()
         console.log(e)
     }
 })
-
 
 module.exports = router

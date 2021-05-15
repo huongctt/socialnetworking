@@ -18,15 +18,18 @@ router.post('/comments/create', auth, async (req, res) => {
         const comment = new Comment({
             ...req.body,  
             userid: req.user._id,
-            username: req.user.username,
-            avatarStatus: req.user.avatarStatus
+            // username: req.user.username,
+            // avatarurl: req.user.avatarurl
         })
         await comment.save()
         post.comments.push(comment)
         await post.save()  
         // console.log(comment)      
-        res.status(201).send(comment)
-        // res.redirect('/newsfeed')
+        res.status(201).send({
+            comment,
+            username:req.user.username,
+            avatarurl: req.user.avatarurl
+        })
 
     }else {
         throw new Error()

@@ -29,18 +29,18 @@ const upload = multer({
 
 //register
 router.post('/users/register', async (req, res) => {
-    console.log(req.body)
+    // console.log(req.body)
     // const user = new User(req.body)
     const user = new User ({
         ...req.body,
-        profilePicture: "images/default-avatar.png"
+        avatarurl: "/images/default-avatar.png"
     })
     try {
         
         await user.save()
         const token = await user.generateAuthToken()
         res.cookie('authToken', token,{httpOnly: true, maxAge: 3600000})
-        console.log(user)
+        // console.log(user)
         // res.status(201).send({user, token})
         res.redirect('/newsfeed')
     } catch (e) {
@@ -96,13 +96,23 @@ router.get('/users/:id',auth,  async (req, res) => {
             }).execPopulate();
             var friendArr = await Promise.all(user.friends.map(friend => User.findById(friend.receiver)))
             var postArr = await Post.find({user: user})
-            const post3 = postArr.sort((a,b) => b.createdAt - a.createdAt)
-            for(var i = 0; i < postArr.length; i++){
-                await postArr[i].populate({
-                    path:'comments'
-                }).execPopulate()
+            if(postArr.length!= 0){
+                const post3 = postArr.sort((a,b) => b.createdAt - a.createdAt)
+                for(var i = 0; i < postArr.length; i++){
+                    await postArr[i].populate({
+                        path:'comments'
+                    }).execPopulate()
+                    if(postArr[i].comments.length!=0){
+                        for(var j = 0; j < postArr[i].comments.length; j++){
+                            await postArr[i].comments[j].populate({
+                                path:'userid'
+                            }).execPopulate()
+                            // console.log("ok")
+                        }
+                    }
+                }
             }
-            // console.log(req.user)
+            
             res.render('personwall', {thisuser: user, friendArr, postArr, user: req.user})
         } 
     } catch (e) {
@@ -116,8 +126,9 @@ router.post('/users/uploadAvatar',auth, upload.single('avatar'), async (req, res
     // console.log("change Avatar")
     const buffer = await sharp(req.file.buffer).resize({width:400, height:400}).png().toBuffer()
     req.user.avatar = buffer
-    req.user.avatarStatus = true
+    req.user.avatarurl = '/users/' +req.user._id +'/avatar'
     await req.user.save()
+    // console.log(req.user)
     var link = '/users/' +req.user._id
     res.redirect(link)
 }, (error, req, res, next) => {
@@ -146,7 +157,7 @@ router.get('/users/:id/avatar', async (req, res) => {
 
 router.patch('/users/me', auth, async (req, res) => {
     const updates = Object.keys(req.body)
-    const allowedUpdates = ['name', 'email', 'age', 'bio', 'password','avatarStatus']
+    const allowedUpdates = ['name', 'email', 'age', 'bio', 'password','avatarurl']
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
 
     if (!isValidOperation) {

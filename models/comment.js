@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const User = require('./user.js')
 const Schema = new mongoose.Schema({
     content: {
         type: String,
@@ -9,14 +9,7 @@ const Schema = new mongoose.Schema({
     userid: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    },
-    avatarStatus:{
-        type: Boolean,
-        default: false
-    },
-    username:{
-        type: String
-    },   
+    },  
 
     post: {
         type: mongoose.Schema.Types.ObjectId,
@@ -24,6 +17,8 @@ const Schema = new mongoose.Schema({
     },
 
 },{timestamps: true});
+
+
 
 const Comment = mongoose.model('Comment', Schema);
 

@@ -210,7 +210,7 @@
 	
 	<div class="topbar stick">
 		<div class="logo">
-			<a title="" href="newsfeed.html"><img src="../images/lumi.PNG" alt="" width=60% !important/></a>
+			<a title="" href="../newsfeed"><img src="../images/lumi.PNG" alt="" width=60% !important/></a>
 		</div>
 		
 		<div class="top-area">
@@ -445,12 +445,14 @@
 	<section>
 		<div class="feature-photo">
 			<figure><img src="../images/resources/timeline-1.jpg" alt=""></figure>
+			<% if(thisuser.username != user.username) {%>
 			<div class="add-btn">
 				<form class="addfriend">
 					<input type="hidden"  name="id" id="id"value="<%=thisuser._id%>"/>
 					<button>Add Friend</button>
 				</form>
 			</div>
+			<%}%>
 			<!-- <form class="edit-phto">
 				<i class="fa fa-camera-retro"></i>
 				<label class="fileContainer">
@@ -463,11 +465,10 @@
 					<div class="col-lg-2 col-sm-3">
 						<div class="user-avatar">
 							<figure>
-								<%if (thisuser.avatarStatus){%>
-								<img src="../users/<%=thisuser._id%>/avatar" alt="">
-								<%}else{%>
-									<img src="../images/default-avatar.png" alt="">
-								<%}%>
+								
+								<img src="..<%=thisuser.avatarurl%>" alt="">
+								<%if (thisuser.username == user.username) {%>
+							</figure>	
 								<form class="edit-phto"  method="POST" action="../users/uploadAvatar" enctype="multipart/form-data">
 									<i class="fa fa-camera-retro"></i>
 									<label class="fileContainer">
@@ -478,6 +479,7 @@
 									<button>Send</button>
 								</form>
 							</figure>
+							<%}%>
 						</div>
 					</div>
 					<div class="col-lg-10 col-sm-9">
@@ -584,15 +586,9 @@
 										
 									<div class="central-meta item">
 										<div class="new-postbox">
-											<%if(!thisuser.avatarStatus)	{ %>
-												<figure>
-													<img src="../images/default-avatar.png" >
-												</figure>
-											<%}else{ %>
-												<figure>
-													<img src="../users/<%=thisuser._id%>/avatar" >
-												</figure>	
-											<%} %>
+											<figure>
+												<img src="..<%=thisuser.avatarurl%>" alt="">
+											</figure>
 											<div class="newpst-input">
 												<form method="post" action="../posts/create" enctype="multipart/form-data">
 													<textarea name="content"rows="2" placeholder="write something"></textarea>
@@ -622,15 +618,10 @@
 										<div class="central-meta item">
 											<div class="user-post">
 												<div class="friend-info">
-													<%if(!thisuser.avatarStatus)	{ %>
 													<figure>
-														<img src="../images/default-avatar.png" >
+								
+														<img src="..<%=thisuser.avatarurl%>" alt="">
 													</figure>
-													<%}else{ %>
-													<figure>
-														<img src="../users/<%=thisuser._id%>/avatar" >
-													</figure>	
-													<%} %>
 													<div class="friend-name">
 														<ins><a href="/users/<%=thisuser._id%>" title=""><%= thisuser.username%></a></ins>
 														<!-- time
@@ -758,15 +749,13 @@
 															<%for (var comment of post.comments) {%>
 																<li>
 																	<div class="comet-avatar">
-																		<%if (!comment.avatarStatus){%>
-																		<img src="../images/resources/comet-1.jpg" alt="">
-																		<%}else{%>
-																			<img src="../users/<%=comment.userid%>/avatar" alt="">
-																		<%}%>
+																		
+																		<img src="..<%=comment.avatarurl%>" alt="">
+																		
 																	</div>
 																	<div class="we-comment">
 																		<div class="coment-head">
-																			<h5><a href="users/<%=comment.userid%>" title=""><%=comment.username%></a></h5>
+																			<h5><a href="users/<%=comment.userid.avatarurl%>" title=""><%=comment.userid.username%></a></h5>
 																			<!-- <span>1 year ago</span> -->
 																		</div>
 																		<p><%=comment.content%></p>
@@ -812,12 +801,9 @@
 												<%for (var friend of friendArr) { %>
 													<li>
 														<figure>
-															<%if(!friend.avatarStatus) { %>
-																<img src="../images/resources/friend-avatar.jpg" alt="">
-															<%}else{%>
-																<img src="/users/<%=friend._id%>/avatar" alt="">
-															<%}%>
-															<!--<span class="status f-online"></span>-->
+								
+															<img src="..<%=friend.avatarurl%>" alt="">
+
 														</figure>
 													
 														<div class="friendz-meta">

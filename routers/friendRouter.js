@@ -114,9 +114,9 @@ router.get('/accept-friend',auth, async (req, res) => {
                 $set: {status: 3, friends: true}
             });
 
-            return res.json(200, {
-                message: 'Friend Request Accepted'
-            });
+            return res.status(200).send({
+                message: 'Accept friend successfully'
+            })
         }
     }catch(err)
     {
