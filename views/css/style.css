@@ -4716,9 +4716,9 @@ canvas {
     visibility: visible;
 }
 
-.top-area > ul.main-menu {
+.top-area > ul.main-menu { 
     float: left;
-    margin-left: 20%;
+    margin-left: 15%;
     line-height: 25px;
 }
 
@@ -10061,9 +10061,12 @@ aside.sidebar.full-style {
     text-transform: uppercase;
 }
 #inputsearch {
-    padding: 5px 5px;
-    margin: 8px 0;
+    padding: 3px 3px;
+    margin: 10px 0;
     border-radius: 6px;
     border: 2px solid #DCDCDC;
+}
+#btnsearch {
+    border-radius: 6px;
 }
 

@@ -184,26 +184,14 @@ router.post('/users/logout', auth, async(req, res) => {
             return token.token !== req.token
         })
         await req.user.save()
-
+        console.log("ok")
         // res.status(200).send()
         res.redirect('')
     } catch (e) {
         res.status(500).send()
     }
 })
-router.post('/logout', auth, async(req, res) => {
-    try {
-        req.user.tokens = req.user.tokens.filter((token) => {
-            return token.token !== req.token
-        })
-        await req.user.save()
 
-        // res.status(200).send()
-        res.rend('')
-    } catch (e) {
-        res.status(500).send()
-    }
-})
 router.post('/users/logout2', auth, async(req, res) => {
     try {
         req.user.tokens = req.user.tokens.filter((token) => {

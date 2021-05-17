@@ -13,7 +13,12 @@ router.use(bodyParser.urlencoded({ extended: true }));
 router.get('/notifications', auth, async (req, res) => {
     try {
         await req.user.populate({
-            path: 'notifications'
+            path: 'notifications',
+            options: {
+                sort: {
+                    updatedAt: -1
+                }
+            }
             
         }).execPopulate();
         for(var i = 0; i <req.user.notifications.length; i++) {

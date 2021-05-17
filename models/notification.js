@@ -17,6 +17,11 @@ const Schema = new mongoose.Schema({
         ref: 'Post'
     },
 
+    count: {
+        type: Number,
+        default: 0
+    }
+
 },{timestamps: true});
 
 const  Notification = mongoose.model('Notification', Schema);

@@ -86,10 +86,26 @@ router.get('/posts/image/:id', async (req, res) => {
     }
 })
 
-router.get('/posts', auth,  async (req, res) => {
+router.get('/posts/:id', auth,  async (req, res) => {
     try {
-        await req.user.populate('posts').execPopulate();
-        res.send(req.user.posts)
+        var post = await Post.findById(req.params.id)
+        await post.populate({
+            path: 'user'
+            
+        }).execPopulate();
+        await post.populate({
+            path: 'comments'
+            
+        }).execPopulate();
+        if(post.comments.length!=0){
+            
+            for(var k = 0; k < post.comments.length; k++){
+                await post.comments[k].populate({
+                    path:'userid'
+                }).execPopulate()
+            }   
+        }
+        res.render('singlepost', {post: post, user: req.user})
     } catch (e) {
         res.status(500).send()
     }

@@ -34,11 +34,13 @@ router.post('/likes/create', auth, async (req, res) => {
                 message: "Like successfully"
             })
         
-        }    
+        }else {
+            res.status(201).send({
+                message: "You liked this post before"
+            })
+        }   
 
-        res.status(201).send({
-            message: "You liked this post before"
-        })
+        
 
     }else {
         throw new Error()

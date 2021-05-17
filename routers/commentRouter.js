@@ -29,27 +29,33 @@ router.post('/comments/create', auth, async (req, res) => {
             path: 'notifications'
             
         }).execPopulate();
-        if(!req.user._id.equals(post.user)){
-            var flag = false;
-            for( var i = 0; i < req.user.notifications.length; i++){
-                if(req.user.notifications[i].post.equals(post._id)){
-                    flag = true
-                } 
+
+        var prenoti = await Notification.findOne({action: 'comment',post: post._id})
+        var flag = false;
+        for(var j = 0; j < prenoti.users.length; j++){
+            if(prenoti.users[j].equals(req.user._id)){
+                flag = true
             }
-            
+        }
+        if(!req.user._id.equals(post.user)){
             if(!flag) {
                 console.log(flag)
-                var prenoti = await Notification.findOne({action: 'comment',post: post._id})
                 prenoti.users.push(req.user)
                 await prenoti.save()
                 req.user.notifications.push(prenoti)
                 await req.user.save()
             }
         } else {
-            var prenoti = await Notification.findOne({action: 'comment',post: post._id})
-            prenoti.users.push(req.user)
-            await prenoti.save()
+            if(!flag) {
+                // console.log(flag)
+                prenoti.users.push(req.user)
+                await prenoti.save()
+                
+            }   
         } 
+        prenoti.count = prenoti.count + 1
+        await prenoti.save()
+        // console.log(prenoti)
         res.status(201).send({
             comment,
             username:req.user.username,
