@@ -9,6 +9,8 @@ const userRouter = require('./routers/userRouter.js')
 const friendRouter = require('./routers/friendRouter.js')
 const postRouter = require('./routers/postRouter.js')
 const commentRouter = require('./routers/commentRouter.js')
+const likeRouter = require('./routers/likeRouter.js')
+const notificationRouter = require('./routers/notificationRouter.js')
 
 
 const app = express()
@@ -22,6 +24,8 @@ app.use(userRouter)
 app.use(friendRouter)
 app.use(postRouter)
 app.use(commentRouter)
+app.use(likeRouter)
+app.use(notificationRouter)
 app.use(express.static(publicDirectoryPath))
 app.use(cookies());
 

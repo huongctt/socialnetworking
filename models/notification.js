@@ -2,10 +2,15 @@ const mongoose = require('mongoose');
 
 const Schema = new mongoose.Schema({
 
-    userid: {
+    action: {
+        type: String,
+        require: true
+    },
+
+    users: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    },
+    }],
 
     post: {
         type: mongoose.Schema.Types.ObjectId,
@@ -14,6 +19,6 @@ const Schema = new mongoose.Schema({
 
 },{timestamps: true});
 
-const  Like = mongoose.model('Like', Schema);
+const  Notification = mongoose.model('Notification', Schema);
 
-module.exports = Like;
+module.exports = Notification;
