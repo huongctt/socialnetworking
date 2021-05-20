@@ -332,10 +332,8 @@
 								  <h5><%=thisuser.username%></h5>
 								</li>
 								<li>
-									<a class="active" href="../users/<%=thisuser._id%>" title="" data-ripple="">time line</a>
-									<%if(user.username == thisuser.username) {%>
-									<a class="" href="../users/editprofile" title="" data-ripple="">Edit profile</a>
-									<%}%>
+									<a class="" href="../users/<%=user._id%>" title="" data-ripple="">time line</a>
+									<a class="active" href="../users/editprofile" title="" data-ripple="">Edit profile</a>
 									<!-- <a class="" href="timeline-photos.html" title="" data-ripple="">Photos</a>
 									<a class="" href="timeline-videos.html" title="" data-ripple="">Videos</a>
 									<a class="" href="timeline-friends.html" title="" data-ripple="">Friends</a>
@@ -418,206 +416,66 @@
 										<ul class="short-profile">
 											<li>
 												<span>Name</span>
-												<p><%=thisuser.name%></p>
+												<p><%=user.name%></p>
 											</li>
 											<li>
 												<span>Email</span>
-												<p><%=thisuser.email%></p>
+												<p><%=user.email%></p>
 											</li>
-											<%if (thisuser.city!=""){%>
+											<%if (user.city!=""){%>
 												<li>
 													<span>City</span>
-													<p><%=thisuser.city%></p>
+													<p><%=user.city%></p>
 												</li>	
 											<%}%>
-											<%if (thisuser.bio!=""){%>
+											<%if (user.bio!=""){%>
 												<li>
 													<span>Bio</span>
-													<p><%=thisuser.bio%></p>
+													<p><%=user.bio%></p>
 												</li>	
 											<%}%>
-											
 										</ul>
 									</div>	
 								</aside>
 							</div><!-- sidebar -->
 							<div class="col-lg-6">
-								<div class="loadMore">
-									<%if( thisuser.username == user.username) { %>
-										
-									<div class="central-meta item">
-										<div class="new-postbox">
-											<figure>
-												<img src="..<%=thisuser.avatarurl%>" alt="">
-											</figure>
-											<div class="newpst-input">
-												<form method="post" action="../posts/create" enctype="multipart/form-data">
-													<textarea name="content"rows="2" placeholder="write something"></textarea>
-													<div class="attachments">
-														<ul>
-															
-															<li>
-																<i class="fa fa-image"></i>
-																<label class="fileContainer">
-																	<input name="imagePost" type="file">
-																</label>
-															</li>
-															
-															<li>
-																<button type="submit">Post</button>
-															</li>
-														</ul>
-													</div>
-												</form>
-											</div>
-										</div>
-									</div><!-- add post new box -->
-									<%}%>
-									<%if(postArr.length != 0)	{ %>
-										<%var i = 0 %>
-										<%for (var post of postArr) { %>
-										<div class="central-meta item">
-											<div class="user-post">
-												<div class="friend-info">
-													<figure>
-								
-														<img src="..<%=thisuser.avatarurl%>" alt="">
-													</figure>
-													<div class="friend-name">
-														<ins><a href="/users/<%=thisuser._id%>" title=""><%= thisuser.username%></a></ins>
-														<!-- time
-															<span>published: june,2 2018 19:PM</span>
-														-->
-													</div>
-												
-													<div class="post-meta">
-														<%if (post.imageStatus)	{ %>
-														<img src="../posts/image/<%=post._id%>" />
-														<%}%>
-														<!-- <div class="we-video-info">
-															<ul>
-																
-																<li>
-																	<span class="comment" data-toggle="tooltip" title="Comments">
-																		<i class="fa fa-comments-o"></i>
-																		<ins><%= post.comments.length%></ins>
-																	</span>
-																</li>
-																<li>
-																	<span class="like" data-toggle="tooltip" title="like">
-																		<i class="ti-heart"></i>
-																		<ins><%= post.likes.length%></ins>
-																	</span>
-																</li>
-																
-																<li class="social-media">
-																	<div class="menu">
-																	  <div class="rotater">
-																		<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-html5"></i></a></div>
-																	  </div>
-																	  <div class="rotater">
-																		<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-facebook"></i></a></div>
-																	  </div>
-																	  <div class="rotater">
-																		<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-google-plus"></i></a></div>
-																	  </div>
-																	  <div class="rotater">
-																		<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-twitter"></i></a></div>
-																	  </div>
-																	  <div class="rotater">
-																		<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-css3"></i></a></div>
-																	  </div>
-																	  <div class="rotater">
-																		<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-instagram"></i></a>
-																		</div>
-																	  </div>
-																		<div class="rotater">
-																		<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-dribbble"></i></a>
-																		</div>
-																	  </div>
-																	  <div class="rotater">
-																		<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-pinterest"></i></a>
-																		</div>
-																	  </div>
-		
-																	</div>
-																</li>
-															</ul>
-														</div> -->
-														<div class="description">
-															
-															<p style="color:black ;font-size:16px !important; ">
-																<%= post.content%>
-															</p>
-															
-														</div>
-														<div class="we-video-info">
-															<ul>
-																
-																<li>
-																	<span class="comment" data-toggle="tooltip" title="Comments">
-																		<i class="fa fa-comments-o"></i>
-																		<ins><%= post.comments.length%></ins>
-																	</span>
-																</li>
-																<li>
-																	<span class="like" data-toggle="tooltip" title="like">
-																		<i class="ti-heart"></i>
-																		<ins><%= post.likes.length%></ins>
-																	</span>
-																</li>
-																
-																
-															</ul>
-														</div>
-													</div>
-												</div>
-												 
-												<div class="coment-area">
-													<ul class="we-comet" id="comment<%=i%>">
-														<%if (post.comments.length != 0 ){%>
-															<%for (var comment of post.comments) {%>
-																<li>
-																	<div class="comet-avatar">
-																		
-																		<img src="..<%=comment.userid.avatarurl%>" alt="">
-																		
-																	</div>
-																	<div class="we-comment">
-																		<div class="coment-head">
-																			<h5><a href="users/<%=comment.userid.avatarurl%>" title=""><%=comment.userid.username%></a></h5>
-																			<!-- <span>1 year ago</span> -->
-																		</div>
-																		<p><%=comment.content%></p>
-																	</div>
-																	
-																</li>
-																<%}%>
-														<%}%>
-														
-														
-														
-														
-													</ul>
-													<div class="comet-avatar">
-														<img src="../images/resources/comet-1.jpg" alt="">
-													</div>
-													<div class="post-comt-box">
-														<form class="comment-form">
-															<textarea id="commentcontent<%=i%>" placeholder="Post your comment"></textarea>
-															<input type="hidden"  id="postid<%=i%>" value="<%=post._id%>"/>
-													
-															<button type="submit" style="color:#007bff">Comment</button>
-														</form>	
-													</div>
-												</div>
+								<div class="central-meta">
+									<div class="editing-info">
+										<h5 class="f-title"><i class="ti-info-alt"></i> Edit Basic Information</h5>
+
+										<form method="POST" action="../users/edit">
+											<div class="form-group">	
+												<input type="text" required="required" value="<%=user.name%>" name="name"/>
+												<label class="control-label" for="input">Name</label><i class="mtrl-select"></i>
+											  </div>
 											
+											<div class="form-group">	
+											  <input type="text" required="required" value="<%=user.email%>" name="email"/>
+											  <label class="control-label" for="input"><a href="https://wpkixx.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4b0e262a22270b">[email&#160;protected]</a></label><i class="mtrl-select"></i>
 											</div>
-										</div>
-										<%i++%>
-										<% }%>
-										<% }%>
-									
+											<div class="form-group">	
+											  <input type="text" value="<%=user.phone%>" name="phone"/>
+											  <label class="control-label" for="input">Phone No.</label><i class="mtrl-select"></i>
+											</div>
+											
+											
+											<div class="form-group">	
+											  <input type="text" value="<%=user.city%>" name="city"/>
+											  <label class="control-label" for="input">City</label><i class="mtrl-select"></i>
+											</div>
+											<div class="form-group">	
+												<input type="text"value="<%=user.bio%>" name="bio"/>
+												<label class="control-label" for="input">Bio</label><i class="mtrl-select"></i>
+											  </div>
+											
+											
+											<!-- <button type="submit" style="color:#007bff">Update</button> -->
+											
+											<div class="submit-btns">
+												<button type="submit" class="mtr-btn"><span>Update</span></button>
+											</div>
+										</form>
+									</div>
 								</div>
 							</div><!-- centerl meta -->
 							<div class="col-lg-3">
@@ -625,6 +483,7 @@
 									
 									<div class="widget friend-list stick-widget">
 										<h4 class="widget-title">Friends</h4>
+										<div id="searchDir"></div>
 										<ul id="people-list" class="friendz-list">
 											<%if (friendArr.length !=0){%>
 												<%for (var friend of friendArr) { %>

@@ -65,21 +65,98 @@ router.post('/users/login', async (req, res) => {
     }
 })
 
-//personal wall
-// router.get('/users/:id', async (req, res) => {
-//     try {
-//         const _id = req.params.id 
-//         const user = await User.findById(_id)
-//         if (!user) {
-//             return res.status(404).send()
-//         }else {
-//             res.send(user)
-//         } 
-//     } catch (e) {
-//         res.status(500).send()
-//         console.log(e)
-//     }
-// })
+router.get('/users/editprofile', auth, async(req,res) => {
+    const match = {friends : true }
+    await req.user.populate({
+        path: 'friends',
+         match: match
+                
+    }).execPopulate();
+    var friendArr = await Promise.all(req.user.friends.map(friend => User.findById(friend.receiver)))
+    res.render('editprofile', {thisuser: req.user, friendArr, user: req.user})
+})
+
+router.post('/users/edit', auth, async (req, res) => {
+    const updates = Object.keys(req.body)
+    // console.log(req.body)
+    try {
+
+        updates.forEach((update) => req.user[update] = req.body[update])
+        await req.user.save()
+        res.redirect('back')
+    } catch (e) {
+        res.status(400).send(e)
+    }
+})
+
+router.post('/users/uploadAvatar',auth, upload.single('avatar'), async (req, res) => {
+    // console.log("change Avatar")
+    const buffer = await sharp(req.file.buffer).resize({width:400, height:400}).png().toBuffer()
+    req.user.avatar = buffer
+    req.user.avatarurl = '/users/' +req.user._id +'/avatar'
+    await req.user.save()
+    // console.log(req.user)
+    var link = '/users/' +req.user._id
+    res.redirect(link)
+}, (error, req, res, next) => {
+    res.status(400).send({error: error.message})
+})
+
+router.get('/users/:id/avatar', async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id)
+        if (!user || !user.avatar) {
+            throw new Error()
+        }else {
+            res.set('Content-Type', 'image/png')
+            res.send(user.avatar)
+        }
+
+    } catch(e) {
+        res.status(404).send()
+        console.log(e)
+    }
+})
+
+
+
+router.post('/users/logout', auth, async(req, res) => {
+    try {
+        req.user.tokens = req.user.tokens.filter((token) => {
+            return token.token !== req.token
+        })
+        await req.user.save()
+        console.log("ok")
+        // res.status(200).send()
+        res.redirect('')
+    } catch (e) {
+        res.status(500).send()
+    }
+})
+
+router.post('/users/logout2', auth, async(req, res) => {
+    try {
+        req.user.tokens = req.user.tokens.filter((token) => {
+            return token.token !== req.token
+        })
+        await req.user.save()
+
+        // res.status(200).send()
+        res.redirect('../login')
+    } catch (e) {
+        res.status(500).send()
+    }
+})
+
+router.post('/users/logoutAll', auth, async(req,res) => {
+    try {
+        req.user.tokens = []
+        await req.user.save()
+        res.send()
+    } catch(e) {
+        res.status(500).send()
+    }
+})
 
 router.get('/users/:id',auth,  async (req, res) => {
     try {
@@ -122,99 +199,8 @@ router.get('/users/:id',auth,  async (req, res) => {
 })
 
 
-router.post('/users/uploadAvatar',auth, upload.single('avatar'), async (req, res) => {
-    // console.log("change Avatar")
-    const buffer = await sharp(req.file.buffer).resize({width:400, height:400}).png().toBuffer()
-    req.user.avatar = buffer
-    req.user.avatarurl = '/users/' +req.user._id +'/avatar'
-    await req.user.save()
-    // console.log(req.user)
-    var link = '/users/' +req.user._id
-    res.redirect(link)
-}, (error, req, res, next) => {
-    res.status(400).send({error: error.message})
-})
-
-router.get('/users/:id/avatar', async (req, res) => {
-    try {
-        const user = await User.findById(req.params.id)
-        if (!user || !user.avatar) {
-            throw new Error()
-        }else {
-            res.set('Content-Type', 'image/png')
-            res.send(user.avatar)
-        }
-
-    } catch(e) {
-        res.status(404).send()
-        console.log(e)
-    }
-})
 
 
-
-
-
-router.patch('/users/me', auth, async (req, res) => {
-    const updates = Object.keys(req.body)
-    const allowedUpdates = ['name', 'email', 'age', 'bio', 'password','avatarurl']
-    const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
-
-    if (!isValidOperation) {
-        return res.status(400).send({ error: 'Invalid updates!' })
-    }
-
-    try {
-
-        updates.forEach((update) => req.user[update] = req.body[update])
-        await req.user.save()
-        res.send(req.user)
-    } catch (e) {
-        res.status(400).send(e)
-    }
-})
-
-router.get('/users/me', auth, async (req, res) => {
-    res.status(200).send(req.user)
-})
-
-router.post('/users/logout', auth, async(req, res) => {
-    try {
-        req.user.tokens = req.user.tokens.filter((token) => {
-            return token.token !== req.token
-        })
-        await req.user.save()
-        console.log("ok")
-        // res.status(200).send()
-        res.redirect('')
-    } catch (e) {
-        res.status(500).send()
-    }
-})
-
-router.post('/users/logout2', auth, async(req, res) => {
-    try {
-        req.user.tokens = req.user.tokens.filter((token) => {
-            return token.token !== req.token
-        })
-        await req.user.save()
-
-        // res.status(200).send()
-        res.redirect('../login')
-    } catch (e) {
-        res.status(500).send()
-    }
-})
-
-router.post('/users/logoutAll', auth, async(req,res) => {
-    try {
-        req.user.tokens = []
-        await req.user.save()
-        res.send()
-    } catch(e) {
-        res.status(500).send()
-    }
-})
 
 
 module.exports = router

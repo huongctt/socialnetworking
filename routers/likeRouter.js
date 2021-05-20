@@ -11,7 +11,7 @@ const router = new express.Router()
 router.use(bodyParser.urlencoded({ extended: true }));
 
 router.post('/likes/create', auth, async (req, res) => {
-    console.log(req.body)
+    // console.log(req.body)
     try {
         let post = await Post.findById(req.body.post)
 

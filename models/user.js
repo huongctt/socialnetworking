@@ -23,6 +23,16 @@ const userSchema = new mongoose.Schema({
         trim: true,
         maxlength: 250,
     },
+    phone: {
+        type: String,
+        default: "",
+        trim: true
+    },
+    city: {
+        type: String,
+        default: "",
+        trim: true
+    },
     email: {
         type: String,
         trim: true,
