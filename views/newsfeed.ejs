@@ -539,9 +539,8 @@
 											
 											<div class="friend-name">
 												<ins><a href="/users/<%=post.user._id%>" title=""><%= post.user.username%></a></ins>
-												<!-- time
-													<span>published: june,2 2018 19:PM</span>
-												-->
+													<span><%=post.createdAt.toDateString()%></span>
+												
 											</div>
 										
 											<div class="post-meta">
@@ -623,6 +622,13 @@
 																<i class="ti-heart"></i>
 																<ins><%= post.likes.length%></ins>
 															</span>
+															<% if (likeArr[i]){ %>
+															<li>
+																<span class="dislike" data-toggle="tooltip" title="liked">
+																	<i class="ti-heart-broken"></i>
+																</span>
+															</li>
+															<% } %>
 															
 														</li>
 														

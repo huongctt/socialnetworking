@@ -420,18 +420,30 @@
 																<% if (noti.action == "comment" && noti.users.length != 0) { %>
 																	
 																	<li>
-																		<div class="notifi-meta">
+																		<div class="notifi-meta" style="margin-left: 40px;">
 																			<a href="/posts/<%=noti.post%>">
-																			<p><%=j%> people commented on a post you're following</p>
+																			<p style="color:black;font-size:16px;"><%=j%> people commented on a post you're following</p>
+																			<% 	var day = noti.updatedAt.getDate() 
+																				var month = noti.updatedAt.getMonth() + 1
+																				var year = noti.updatedAt.getYear() - 100 + 2000
+																				var time = noti.updatedAt.toTimeString()
+																			%>
+																			<span style="font-size:12px;"><%=day%>/<%=month%>/<%=year%></span>
 																			</a>
 																		</div>
 																		<i class="del fa fa-close"></i>
 																	</li>
 																<%} else if (noti.action == "like" && noti.users.length != 0) {%>
 																	<li>
-																		<div class="notifi-meta">
+																		<div class="notifi-meta" style="margin-left: 40px;">
 																			<a href="/posts/<%=noti.post%>">
-																			<p><%=j%> people liked on a post you're following</p>
+																			<p style="color:black;font-size:16px;"><%=j%> people liked on a post you are following</p>
+																			<% 	var day = noti.updatedAt.getDate() 
+																				var month = noti.updatedAt.getMonth() + 1
+																				var year = noti.updatedAt.getYear() - 100 + 2000
+																				var time = noti.updatedAt.toTimeString()
+																			%>
+																			<span style="font-size:12px;"><%=day%>/<%=month%>/<%=year%></span>
 																			</a>
 																		</div>
 																		<i class="del fa fa-close"></i>

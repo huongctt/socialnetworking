@@ -6,6 +6,7 @@ const User = require('../models/user.js')
 const Friend = require('../models/friend.js')
 const Post = require('../models/post.js')
 const Comment = require('../models/comment.js')
+const Like = require('../models/like.js')
 const Notification = require('../models/notification.js')
 
 const upload = multer({
@@ -186,7 +187,17 @@ router.get('/newsfeed',auth,  async (req, res) => {
         var friendArr = await Promise.all(req.user.friends.map(friend => User.findById(friend.receiver)))
         // console.log(friendArr)
         const post3 = postArr.sort((a,b) => b.createdAt - a.createdAt)
-        res.render('newsfeed', {postArr, friendArr, user: req.user})
+
+        var likeArr = [];
+        for(var k = 0; k < postArr.length; k++) {
+            var flag = false;
+            var like = await Like.findOne({userid:req.user._id, post: postArr[k]._id})
+            if (like){
+                flag = true
+            }
+            likeArr.push(flag)
+        }
+        res.render('newsfeed', {postArr, friendArr, user: req.user, likeArr})
         
     } catch(e) {
         res.status(500).send()

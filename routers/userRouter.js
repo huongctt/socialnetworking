@@ -8,6 +8,7 @@ const User = require('../models/user.js')
 const Friend = require('../models/friend.js')
 const Post = require('../models/post.js')
 const Comment = require('../models/comment.js')
+const Like = require('../models/like.js')
 const auth = require('../middleware/auth.js')
 
 const router = new express.Router()
@@ -189,8 +190,24 @@ router.get('/users/:id',auth,  async (req, res) => {
                     }
                 }
             }
+            var likeArr = []
+            for(var k = 0; k < postArr.length; k++) {
+                var flag = false;
+                // console.log('post: ',postArr[k]._id)
+                var like = await Like.findOne({userid:req.user._id, post: postArr[k]._id})
+                if (like){
+                    flag = true
+                }
+                likeArr.push(flag)
+            }
+            //friend status
+            var status = 0
+            var friend = await Friend.findOne({requester: req.user._id, receiver: user._id})
+            if(friend) {
+                status = friend.status
+            }
             
-            res.render('personwall', {thisuser: user, friendArr, postArr, user: req.user})
+            res.render('personwall', {thisuser: user, friendArr, postArr, user: req.user, status, likeArr})
         } 
     } catch (e) {
         res.status(500).send()

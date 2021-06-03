@@ -290,10 +290,28 @@
 			<figure><img src="../images/resources/timeline-1.jpg" alt=""></figure>
 			<% if(thisuser.username != user.username) {%>
 			<div class="add-btn">
-				<form class="addfriend">
-					<input type="hidden"  name="id" id="id"value="<%=thisuser._id%>"/>
-					<button>Add Friend</button>
-				</form>
+				<% if (status == 0){ %>
+					<form class="addfriend" method="POST" action="../send-request?id=<%=thisuser._id%>">
+						<input type="hidden"  name="id" id="id" value="<%=thisuser._id%>"/>
+						<button>Add Friend</button>
+					</form>
+                    <%} else if (status == 2) {%>
+						<form class="addfriend" method="POST" action="../accept-friend?id=<%=thisuser._id%>&status=2">
+							<input type="hidden"  name="id" id="id"value="<%=thisuser._id%>"/>
+							<button>Accept Friend</button>
+						</form>
+                    <%} else if(status == 1) {%>
+						<form class="addfriend" method="POST" action="../accept-friend?id=<%=thisuser._id%>&status=1">
+							<input type="hidden"  name="id" id="id"value="<%=thisuser._id%>"/>
+							<button>Cancel Request</button>
+						</form>
+                    <%} else if(status == 3) {%>
+                        <form class="addfriend" method="POST" action="../accept-friend?id=<%=thisuser._id%>&status=3">
+							<input type="hidden"  name="id" id="id"value="<%=thisuser._id%>"/>
+							<button>Unfriend</button>
+						</form>
+                    <%}%>
+				
 			</div>
 			<%}%>
 			<!-- <form class="edit-phto">
@@ -485,9 +503,7 @@
 													</figure>
 													<div class="friend-name">
 														<ins><a href="/users/<%=thisuser._id%>" title=""><%= thisuser.username%></a></ins>
-														<!-- time
-															<span>published: june,2 2018 19:PM</span>
-														-->
+														<span><%=post.createdAt.toDateString()%></span>
 													</div>
 												
 													<div class="post-meta">
@@ -566,6 +582,13 @@
 																		<ins><%= post.likes.length%></ins>
 																	</span>
 																</li>
+																<% if (likeArr[i]){ %>
+																	<li>
+																		<span class="dislike" data-toggle="tooltip" title="liked">
+																			<i class="ti-heart-broken"></i>
+																		</span>
+																	</li>
+																<% } %>
 																
 																
 															</ul>
@@ -873,7 +896,7 @@
 	<script src="../ajax/commentAjax.js"></script>
 	<script src="../ajax/likeAjax.js"></script>
 	<script src="../ajax/logoutAjax.js"></script>
-	<script>
+	<!-- <script>
 		var addFriendForm = document.querySelectorAll(".addfriend")
 		addFriendForm.forEach(form => form.addEventListener('submit', (e) =>{
 			e.preventDefault()
@@ -894,7 +917,7 @@
 			
 			xhr.send()
 		}))
-	</script>
+	</script> -->
 	
 </body>	
 

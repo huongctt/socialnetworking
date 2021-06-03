@@ -326,7 +326,7 @@
 											<div class="friend-name">
 												<ins><a href="/users/<%=auser.receiver._id%>" title=""><%= auser.receiver.username%></a></ins>
 												<!-- <form method="GET" action="/send-request"> -->
-												<form class="acceptfriend">
+												<form class="acceptfriend" method="POST" action="../accept-friend?id=<%=auser.receiver._id%>&status=2">
 													<input type="hidden"  name="id" id="id<%=i%>"value="<%=auser.receiver._id%>"/>
 													<button>Accept Friend</button>
 												</form>
@@ -550,31 +550,7 @@
 	<script src="js/map-init.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8c55_YHLvDHGACkQscgbGLtLRdxBDCfI"></script>
 	<script src="ajax/logoutAjax.js"></script>
-	<!-- <script src="ajax/friend.js"></script> -->
-	<script>
-		var acceptFriendForm = document.querySelectorAll(".acceptfriend")
-		acceptFriendForm.forEach(form => form.addEventListener('submit', (e) =>{
-			// e.preventDefault()
-			var index = Array.from(acceptFriendForm).indexOf(e.target)
-			var idindex= 'id' + index
-			var id = document.getElementById(idindex).value
-			console.log(id)
 
-			// alert("click")
-			var xhr = new XMLHttpRequest()
-			xhr.open("GET", "/accept-friend?id=" + id + '&status=2', true) 
-			xhr.setRequestHeader('Content-Type', 'application/json')
-			
-			xhr.onload = function() {
-				if(this.status == 200){
-				var message = JSON.parse(xhr.response)
-				alert(message.message)
-				}
-			}
-			
-			xhr.send()
-		}))
-	</script>
 
 </body>	
 
