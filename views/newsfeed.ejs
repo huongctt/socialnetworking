@@ -604,8 +604,8 @@
 														<%= post.content%>
 													</p>
 												</div>
-												<div class="we-video-info">
-													<ul>
+												<div class="we-video-info" >
+													<ul id="like<%=i%>">
 														
 														<li>
 															<span class="comment" data-toggle="tooltip" title="Comments">
@@ -622,15 +622,15 @@
 																<i class="ti-heart"></i>
 																<ins><%= post.likes.length%></ins>
 															</span>
-															<% if (likeArr[i]){ %>
+															
+														</li>
+														<% if (likeArr[i]){ %>
 															<li>
 																<span class="dislike" data-toggle="tooltip" title="liked">
 																	<i class="ti-heart-broken"></i>
 																</span>
 															</li>
-															<% } %>
-															
-														</li>
+														<% } %>
 														
 													</ul>
 												</div>

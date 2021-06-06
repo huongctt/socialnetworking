@@ -7,9 +7,9 @@ like.forEach(form => form.addEventListener('click', (e) =>{
     var data = {
         post: document.getElementById(postinput).value
     }
-    console.log(data)
-    // var classcontainer = 'comment' + index
-    // var commentContainer = document.getElementById(classcontainer)
+    // console.log(data)
+    var classcontainer = 'like' + index
+    var likeContainer = document.getElementById(classcontainer)
 
     // console.log(data)
     // alert("click")
@@ -19,8 +19,14 @@ like.forEach(form => form.addEventListener('click', (e) =>{
     
     xhr.onload = function() {
         if(this.status == 201){
-        var res = JSON.parse(xhr.response)
-        alert(res.message)
+            var res = JSON.parse(xhr.response)
+            if (res.message == "Like successfully"){
+                var output = ''
+                output += '<li><span class="dislike" data-toggle="tooltip" title="liked"><i class="ti-heart-broken"></i></span></li>'
+                likeContainer.insertAdjacentHTML('beforeEnd',output)
+            } else {
+                alert(res.message)
+            }
         }
     }
     
