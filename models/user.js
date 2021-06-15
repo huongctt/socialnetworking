@@ -65,6 +65,11 @@ const userSchema = new mongoose.Schema({
             type: String,
             required: true
         }
+    }],
+    chats: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Chat',
+        required: true
     }]
 })
 

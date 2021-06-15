@@ -4153,7 +4153,7 @@ a.forgot-pwd {
     margin-bottom: 0;
     max-height: 322px;
     padding: 40px 15px 10px 0;
-    width: 100%;
+    width: 150%;
     position: relative;
     overflow-x: hidden;
 }
@@ -4272,7 +4272,7 @@ a.forgot-pwd {
     overflow: hidden;
     resize: none;
     display: inline-block;
-    width: 93.5%;
+    width: 130%;
 }
 
 .message-text-container > form {
@@ -4286,7 +4286,7 @@ a.forgot-pwd {
     height: 30px;
     padding: 0;
     position: absolute;
-    right: 13px;
+    right: -200px;
     text-align: center;
     top: 50%;
     transform: translateY(-50%);

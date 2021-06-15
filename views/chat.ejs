@@ -8,7 +8,7 @@
     <meta name="description" content="" />
     <meta name="keywords" content="" />
 	<title>Lumi Social Network Toolkit</title>
-    <link rel="icon" href="../images/fav.png" type="image/png" sizes="16x16"> 
+    <link rel="icon" href="images/fav.png" type="image/png" sizes="16x16"> 
     
     <link rel="stylesheet" href="../css/main.min.css">
     <link rel="stylesheet" href="../css/style.css">
@@ -215,7 +215,7 @@
 	
 	<div class="topbar stick">
 		<div class="logo">
-			<a title="" href="/newsfeed"><img src="../images/lumi.PNG" alt="" width=60% !important></a>
+			<a title="" href="../newsfeed"><img src="../images/lumi.PNG" alt="" width=60% !important></a>
 			<!-- <a title="" href="/newsfeed"><img src="url" alt="" width=60% !important></a> -->
 		</div>
 		
@@ -277,7 +277,7 @@
 			</ul>
 		-->
 		<ul class="main-menu">
-			<form id="searchbyH" method="GET" action="/search">
+			<form id="searchbyH" method="GET" action="../search">
 				<input id="inputsearch" name="username" type="text" size="55%"/>
 				<button id="btnsearch">Search Friend</button>
 			</form>
@@ -360,7 +360,7 @@
 					<!-- <a href="#" title=""><i class="ti-pencil-alt"></i>edit profile</a>
 					<a href="#" title=""><i class="ti-target"></i>activity log</a>
 					<a href="#" title=""><i class="ti-settings"></i>account setting</a> -->
-					<a href="/logout" title=""><i class="ti-power-off"></i>log out</a>
+					<a href="../logout" title=""><i class="ti-power-off"></i>log out</a>
 				</div>
 			</div>
 			<span class="ti-menu main-menu" data-ripple=""></span>
@@ -387,10 +387,7 @@
 												<i class="ti-files"></i>
 												<a href="../users/<%=user._id%>" title="">Wall</a>
 											</li>
-											<!-- <li>
-												<i class="ti-mouse-alt"></i>
-												<a href="inbox.html" title="">Inbox</a>
-											</li> -->
+											
 											<li>
 												<i class="ti-user"></i>
 												<a href="../friend-request" title="">Friend Request</a>
@@ -409,7 +406,7 @@
 											</li>
 											<li>
 												<i class="ti-power-off"></i>
-												<a href="/" title="" id="logout">Logout</a>
+												<a href="../" title="" id="logout">Logout</a>
 											</li>
 											<li>
 												<input type="hidden"  id="thisuserid" value="<%=user._id%>"/>
@@ -491,242 +488,74 @@
 								</aside>
 							</div><!-- sidebar -->
 							<div class="col-lg-6">
-								
-								
-								<div class="loadMore">
-								<!-- <div id="divon"> -->
-								
-								<div class="central-meta item">
-									<% var i = 0 %>
-									<div class="user-post">
-										<div class="friend-info">
+								<div class="central-meta">
+									<div class="messages">
+										<h5 class="f-title"><i class="ti-bell"></i>Messages </h5>
+										<div class="message-box">
 											
-											<figure>
-												<img src="..<%=post.user.avatarurl%>" >
-											</figure>
-											
-											<div class="friend-name">
-												<ins><a href="../users/<%=post.user._id%>" title=""><%= post.user.username%></a></ins>
-												<span><%=post.createdAt.toDateString()%></span>
-											</div>
-										
-											<div class="post-meta">
-												<%if (post.imageStatus)	{ %>
-												<img src="../posts/image/<%=post._id%>" />
-												<%}%>
-												<!-- <img src="url" /> -->
-												<!-- <div class="we-video-info">
-													<ul>
-														
-														<li>
-															<span class="comment" data-toggle="tooltip" title="Comments">
-																<i class="fa fa-comments-o"></i>
-																<ins><%= post.comments.length%></ins>
-															</span>
-														</li>
-														<li>
-															<span class="like" data-toggle="tooltip" title="like">
-																<i class="ti-heart"></i>
-																<ins><%= post.likes.length%></ins>
-															</span>
-														</li>
-														
-														<li class="social-media">
-															<div class="menu">
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-html5"></i></a></div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-facebook"></i></a></div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-google-plus"></i></a></div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-twitter"></i></a></div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-css3"></i></a></div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-instagram"></i></a>
-																</div>
-															  </div>
-																<div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-dribbble"></i></a>
-																</div>
-															  </div>
-															  <div class="rotater">
-																<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-pinterest"></i></a>
-																</div>
-															  </div>
+											<div class="peoples-mesg-box">
+												<div class="conversation-head">
 
-															</div>
-														</li>
-													</ul>
-												</div> -->
-												<div class="description">
-													
-													<p style="color:black ;font-size:16px !important; ">
-														<%= post.content%>
-													</p>
+													<figure><img src="..<%=receiver.avatarurl%>" alt=""></figure>
+													<span><a href="../users/<%=receiver._id%>"><%=receiver.username%></a></span>
 												</div>
-												<div class="we-video-info">
-													<ul>
-														
-														<li>
-															<span class="comment" data-toggle="tooltip" title="Comments">
-																<i class="fa fa-comments-o"></i>
-																<ins><%= post.comments.length%></ins>
-															</span>
-														</li>
-														<li>
-															<!-- <span class="like" data-toggle="tooltip" title="like">
-																<i class="ti-heart"></i>
-																<ins><%= post.likes.length%></ins>
-															</span> -->
-															<span class="like" data-toggle="tooltip"  title="like" >
-																<i class="ti-heart"></i>
-																<ins><%= post.likes.length%></ins>
-															</span>
-															
-														</li>
-														
-													</ul>
-												</div>
-											</div>
-										</div>
-										 
-										<div class="coment-area">
-											<ul class="we-comet" id="comment<%=i%>">
-												<%if (post.comments.length != 0 ){%>
-													<%for (var comment of post.comments) {%>
-														<li>
-															<div class="comet-avatar">
-																
-																<img src="..<%=comment.userid.avatarurl%>" alt="">
-																
-															</div>
-															<div class="we-comment">
-																<div class="coment-head">
-																	<h5><a href="../users/<%=comment.userid._id%>" title=""><%=comment.userid.username%></a></h5>
-																	<!-- <span>1 year ago</span> -->
-																</div>
-																<p><%=comment.content%></p>
-															</div>
-															
+												<ul class="chatting-area" id="message-template" >
+													<% for (var k = 0; k < commonChat.messages.length; k++) { %>
+													<%if (commonChat.messages[k].creator.toString() != sender._id.toString()){ %>
+													<li class="you">
+														<p><%=commonChat.messages[k].content%></p>
+													</li>
+													<%} else {%>
+														<li class="me">
+															<p><%=commonChat.messages[k].content%></p>
 														</li>
 														<%}%>
-												<%}%>
-												
-												
-												<!-- <li class="post-comment">
-													<div class="comet-avatar">
-														<img src="images/resources/comet-1.jpg" alt="">
-													</div>
-													<div class="post-comt-box">
-														<form id="comment-form">
-															<textarea id="commentcontent" placeholder="Post your comment"></textarea>
-															<input type="hidden"  id="postid" value="<%=post.postid%>">
+													<%}%>
 													
-															<button type="submit" style="color:#007bff">Comment</button>
-														</form>	
-													</div>
-												</li> -->
-												
-											</ul>
-											<div class="comet-avatar">
-												<img src="images/resources/comet-1.jpg" alt="">
-											</div>
-											<div class="post-comt-box">
-												<form class="comment-form">
-													<textarea id="commentcontent<%=i%>" placeholder="Post your comment"></textarea>
-													<input type="hidden"  id="postid<%=i%>" value="<%=post._id%>"/>
-											
-													<button type="submit" style="color:#007bff">Comment</button>
-												</form>	
+												</ul>
+												<div class="message-text-container" id="message-form">
+													<form id="message-form">
+														<textarea></textarea>
+														<input type="hidden"  id="commonChat" value="<%=commonChat._id%>"/>
+														<input type="hidden"  id="sendid" value="<%=sender._id%>"/>
+														<input type="hidden"  id="receiveid" value="<%=receiver._id%>"/>
+														<button title="send" type="submit"><i class="fa fa-paper-plane"></i></button>
+													</form>
+												</div>
 											</div>
 										</div>
-									
 									</div>
-								</div>
-								
-							<!-- </div> -->
-								
-								
-								</div>
+								</div>	
 							</div><!-- centerl meta -->
 							<div class="col-lg-3">
 								<aside class="sidebar static">
 									
-									<!-- <div id= "people-list1" class="widget friend-list stick-widget">
-										<h4 class="widget-title">Friends</h4>
+									<div id= "people-list1" class="widget friend-list stick-widget">
+										<h4 class="widget-title">Chat</h4>
+										<!-- <div id="searchDir"></div> -->
+										<ul class="friendz-list">
+											<%if (friendArr.length !=0){%>
+											<%for (var friend of friendArr) { %>
+												<li>
+													<figure>
+														
+															<img src="..<%=friend.avatarurl%>" alt="">
+														
+														<!--<span class="status f-online"></span>-->
+													</figure>
+												
+													<div class="friendz-meta">
+														<a href="../chat/<%=friend._id%>"><%= friend.username%></a>
+														
+													</div>
+												</li>
+												<%}%>
+												<%}%>
+										</ul>
 										
 										
-										<div class="chat-box">
-											<div class="chat-head">
-												<span class="status f-online"></span>
-												<h6>Bucky Barnes</h6>
-												<div class="more">
-													<span><i class="ti-more-alt"></i></span>
-													<span class="close-mesage"><i class="ti-close"></i></span>
-												</div>
-											</div>
-											<div class="chat-list">
-												<ul>
-													<li class="me">
-														<div class="chat-thumb"><img src="images/resources/chatlist1.jpg" alt=""></div>
-														<div class="notification-event">
-															<span class="chat-message-item">
-																Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling the gifts and Jake’s gonna get the drinks
-															</span>
-															<span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Yesterday at 8:10pm</time></span>
-														</div>
-													</li>
-													<li class="you">
-														<div class="chat-thumb"><img src="images/resources/chatlist2.jpg" alt=""></div>
-														<div class="notification-event">
-															<span class="chat-message-item">
-																Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling the gifts and Jake’s gonna get the drinks
-															</span>
-															<span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Yesterday at 8:10pm</time></span>
-														</div>
-													</li>
-													<li class="me">
-														<div class="chat-thumb"><img src="images/resources/chatlist1.jpg" alt=""></div>
-														<div class="notification-event">
-															<span class="chat-message-item">
-																Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling the gifts and Jake’s gonna get the drinks
-															</span>
-															<span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Yesterday at 8:10pm</time></span>
-														</div>
-													</li>
-												</ul>
-												<form class="text-box">
-													<textarea placeholder="Post enter to post..."></textarea>
-													<div class="add-smiles">
-														<span title="add icon" class="em em-expressionless"></span>
-													</div>
-													<div class="smiles-bunch">
-														<i class="em em---1"></i>
-														<i class="em em-smiley"></i>
-														<i class="em em-anguished"></i>
-														<i class="em em-laughing"></i>
-														<i class="em em-angry"></i>
-														<i class="em em-astonished"></i>
-														<i class="em em-blush"></i>
-														<i class="em em-disappointed"></i>
-														<i class="em em-worried"></i>
-														<i class="em em-kissing_heart"></i>
-														<i class="em em-rage"></i>
-														<i class="em em-stuck_out_tongue"></i>
-													</div>
-													<button type="submit"></button>
-												</form>
-											</div>
-										</div>
 									
-									</div>friends list sidebar -->
+									</div><!-- friends list sidebar -->
 								</aside>
 							</div><!-- sidebar -->
 						</div>	
@@ -817,7 +646,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<span class="copyright"><a target="_blank" href="https://www.templateshub.net">Templates Hub</a></span>
-					<i><img src="images/credit-cards.png" alt=""></i>
+					<i><img src="../images/credit-cards.png" alt=""></i>
 				</div>
 			</div>
 		</div>
@@ -896,10 +725,13 @@
 	<script src="../js/script.js"></script>
 	<script src="../js/map-init.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8c55_YHLvDHGACkQscgbGLtLRdxBDCfI"></script>
-	<!--<script src="ajax/postAjax.js"></script>-->
-	<script src="../ajax/commentAjax.js"></script>
-	<script src="../ajax/likeAjax.js"></script>
+	<script src="../socket.io/socket.io.js"></script>
 	<script src="../ajax/logoutAjax.js"></script>
+	<script src="../ajax/chat.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.6.0/qs.min.js"></script>
+
 
 </body>	
 

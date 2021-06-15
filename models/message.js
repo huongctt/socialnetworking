@@ -6,15 +6,11 @@ const Schema = new mongoose.Schema({
         required: true
     },
 
-    sender: {
+    creator: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: true
     },
-
-    receiver: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    }
 
 },{timestamps: true});
 
